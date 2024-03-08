@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Songs List{% endblock %}
+
+{% block styles %}
+<style>
+    .song {
+        border: 1px solid #ddd;
+        margin: 10px 0;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .song img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+    .song-info {
+        flex-grow: 1;
+    }
+    .song-link {
+        margin-left: auto;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main>
+    <h1>Uploaded Songs</h1>
+    <div class="songs-list">
+        {% for song in songs %}
+        <div class="song">
+            {% if song.front_cover %}
+            <img src="{{ song.front_cover.url }}" alt="Front Cover">
+            {% endif %}
+            <div class="song-info">
+                <h2>{{ song.name }}</h2>
+                <p>Singer: {{ song.singer }}</p>
+                <p>Album: {{ song.album }}</p>
+                <p>Style: {{ song.style }}</p>
+                <p>Average Rating: {{ song.avgrating }}</p>
+                <p>Reviews: {{ song.reviews }}</p>
+            </div>
+            {% if song.music_link %}
+            <a href="{{ song.music_link }}" class="song-link">Listen</a>
+            {% endif %}
+            <form action="{% url 'delete_song' song.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+        <div>
+            <a href="{% url 'upload_song' %}" class="button" style="text-decoration: none; color: black;">upload your song</a>
+        </div>
+        <div>
+            <a href="{% url 'index' %}" class="button" style="text-decoration: none; color: black;">return</a>
+        </div>
+    </div>
+</main>
+{% endblock %}

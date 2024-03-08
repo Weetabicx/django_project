@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from user import views as user_views
+from song import views as song_list_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('', user_views.index),
+    path('songs/', include('song.urls')),
 
 ]

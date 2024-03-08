@@ -42,13 +42,13 @@ MusicBook - Discover New Music
     <div>
         <nav>
             <ul>
-                <li><a href="#">Genres</a></li>
+                <li><a href="{% url 'song_list' %}">Song list</a></li>
                 <li><a href="#">New Releases</a></li> <!--TODO show the name, artist, album-->
                 <li><a href="#">My Collection</a></li> <!--TODO only show this after people login-->
             </ul>
         </nav>
     </div>
-</main>
+</main>s
 {% endblock %}
 
 {% extends 'base.html' %}
