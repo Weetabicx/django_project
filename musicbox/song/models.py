@@ -1,5 +1,5 @@
 from django.db import models
-from musicbox.album.models import Album
+from album.models import Album
 
 # Create your models here.
 class Song(models.Model):
@@ -18,7 +18,7 @@ class Song_Comment(models.Model):
     id = models.AutoField(primary_key=True)
     album = models.ForeignKey(Song, on_delete=models.CASCADE)
     rating = models.IntegerField()
-    comment = models.CharField(300)
+    comment = models.CharField(max_length=300)
     
     def __str__(self):
         return self.title    

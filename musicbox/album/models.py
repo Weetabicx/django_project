@@ -10,7 +10,8 @@ class Album(models.Model):
     genre = models.CharField(max_length=30)
     release_date = models.DateField()
     artist = models.CharField(max_length=50)
-    owner = models.ForeignKey(User)
+    # TODO - is Cascade the right choice for on_delete?
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.type + self.name)
@@ -23,7 +24,7 @@ class Album_Comment(models.Model):
     id = models.AutoField(primary_key=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     rating = models.IntegerField()
-    comment = models.CharField(300)
+    comment = models.CharField(max_length=300)
     
 
     def __str__(self):
