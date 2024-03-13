@@ -1,31 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block title %}Songs List{% endblock %}
 
 {% block styles %}
-<style>
-    .song {
-        border: 1px solid #ddd;
-        margin: 10px 0;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-    }
-    .song img {
-        width: 100px;
-        height: 100px;
-        margin-right: 20px;
-    }
-    .song-info {
-        flex-grow: 1;
-    }
-    .song-link {
-        margin-left: auto;
-    }
-</style>
+     <link rel="stylesheet" href="{% static 'song_list.css' %}">
+{% endblock %}
+
+{% block scripts %}
+        <script src="{% static 'delete_song.js' %}"></script>
 {% endblock %}
 
 {% block content %}
+
 <main>
     <h1>Uploaded Songs</h1>
     <div class="songs-list">

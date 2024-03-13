@@ -1,0 +1,18 @@
+ .song {
+        border: 1px solid #ddd;
+        margin: 10px 0;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .song img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+    .song-info {
+        flex-grow: 1;
+    }
+    .song-link {
+        margin-left: auto;
+    }
