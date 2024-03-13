@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 # views.py
 def song_list_view(request):
-    songs = Song.objects.all().order_by('-uploaded_at')
+    songs = Song.objects.all().order_by('-release_date')
     return render(request, 'song/song_list.html', {'songs': songs})
 
 

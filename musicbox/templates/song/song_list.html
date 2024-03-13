@@ -29,7 +29,7 @@
 <main>
     <h1>Uploaded Songs</h1>
     <div class="songs-list">
-        {% for song in songs %}
+        {% for song in song %}
         <div class="song">
             {% if song.front_cover %}
             <img src="{{ song.front_cover.url }}" alt="Front Cover">
