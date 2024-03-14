@@ -7,6 +7,7 @@ MusicBook - Discover New Music
 {% block styles %}
 {{ block.super }}
 <style>
+<<<<<<< Updated upstream
     header {
         display: flex;
         justify-content: space-between;
@@ -19,10 +20,25 @@ MusicBook - Discover New Music
         margin: 10px;
         text-align: center;
     }
+=======
+	.vh-88 {
+		height: 88vh;
+	}
+	.w-94 {
+		width: 94%;
+	}
+	.h-46 {
+		height: 46%;
+	}
+	.h-98 {
+		height: 98.8%;
+	}
+>>>>>>> Stashed changes
 </style>
 {% endblock %}
 
 {% block content %}
+<<<<<<< Updated upstream
 <header>
     <div>
         <h1>Welcome to MusicBook</h1>
@@ -48,5 +64,55 @@ MusicBook - Discover New Music
             </ul>
         </nav>
     </div>
+=======
+<main class="container-fluid">
+	
+	<div class="row">
+	
+		<div class="col">
+			<div class="card vh-88 p-2 position-relative">
+				<div>
+					<div class="card h-46 w-94 position-absolute top-5 start-4 m-2">
+						<div class="card-header">
+							<h4>Recommended</h4>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div>
+					<div class="card h-46 w-94 position-absolute top-50 start-4 m-2">
+						<div class="card-header">
+							<h4>New Releases</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-sm-8">
+			<div class="card vh-88 p-3">
+				<div class="card h-98">
+					<div class="card-header">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<h4>Top Albums</h4>
+								</div>
+								<div class="col">
+									<form class="d-flex" role="search">
+										<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+										<button class="btn btn-secondary" type="submit">Search</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+>>>>>>> Stashed changes
 </main>
 {% endblock %}
