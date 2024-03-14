@@ -1,26 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}
-MusicBook - Discover New Music
-{% endblock %}
-
 {% block styles %}
 {{ block.super }}
 <style>
-<<<<<<< Updated upstream
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    #search {
-        text-align: center;
-    }
-    .new-releases .album {
-        margin: 10px;
-        text-align: center;
-    }
-=======
 	.vh-88 {
 		height: 88vh;
 	}
@@ -33,44 +15,16 @@ MusicBook - Discover New Music
 	.h-98 {
 		height: 98.8%;
 	}
->>>>>>> Stashed changes
 </style>
 {% endblock %}
 
 {% block content %}
-<<<<<<< Updated upstream
-<header>
-    <div>
-        <h1>Welcome to MusicBook</h1>
-    </div>
-    <div>
-        <a href="{% url 'login' %}" class="button" style="text-decoration: none; color: black;">Login</a>
-    </div>
-</header>
-<main>
-    <section id="search" style="margin-top: 20px;">
-        <h2>Find Your Next Favorite Song</h2>
-        <label>
-            <input type="text" placeholder="Search by artist, album, or track" style="width: 100%; max-width: 200px; padding: 10px;">
-        </label>
-        <button>Search</button> <!--TODO-->
-    </section>
-    <div>
-        <nav>
-            <ul>
-                <li><a href="#">Genres</a></li>
-                <li><a href="#">New Releases</a></li> <!--TODO show the name, artist, album-->
-                <li><a href="#">My Collection</a></li> <!--TODO only show this after people login-->
-            </ul>
-        </nav>
-    </div>
-=======
 <main class="container-fluid">
 	
 	<div class="row">
 	
 		<div class="col">
-			<div class="card vh-88 p-2 position-relative">
+			<div class="card vh-88 p-2 position-relative m-2 opacity-90">
 				<div>
 					<div class="card h-46 w-94 position-absolute top-5 start-4 m-2">
 						<div class="card-header">
@@ -90,7 +44,7 @@ MusicBook - Discover New Music
 		</div>
 		
 		<div class="col-sm-8">
-			<div class="card vh-88 p-3">
+			<div class="card vh-88 p-3 m-2 opacity-90">
 				<div class="card h-98">
 					<div class="card-header">
 						<div class="container">
@@ -112,7 +66,6 @@ MusicBook - Discover New Music
 		</div>
 		
 	</div>
-	
->>>>>>> Stashed changes
+
 </main>
 {% endblock %}
