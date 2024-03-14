@@ -1,3 +1,4 @@
+from datetime import timezone, datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -20,12 +21,20 @@ class Album(models.Model):
     def __str__(self):
         return self.name
 
+    def newest_album(self):
+        return self.objects.order_by('-release_date')
+
 class Album_Comment(models.Model):
     id = models.AutoField(primary_key=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     rating = models.IntegerField()
     comment = models.CharField(max_length=300)
     
-
     def __str__(self):
-        return self.title
+        return self.comment
+
+    def top_albums(self):
+        top_albums = {}
+        for album in Album.objects.all()[:10]:
+            top_albums[album.id] = (Album_Comment.objects.filter(id=album.id).aggregate(models.Avg('rating')))
+        return top_albums
