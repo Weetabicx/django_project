@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album</title>
+</head>
+<body>
+
+    <h1>album_manage</h1>
+
+    <section id="uploadAlbum">
+        <h2>Upload a Album</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="albumName">name:</label>
+            <input type="text" id="albumName" name="albumName"><br><br>
+            <label for="albumCover">covent:</label>
+            <input type="file" id="albumCover" name="albumCover"><br><br>
+            <input type="submit" value="upload">
+        </form>
+    </section>
+
+    <script src="albumScript.js"></script>
+</body>
+</html>

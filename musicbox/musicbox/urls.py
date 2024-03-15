@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from user import views as user_views
 from song import views as song_list_views
+from album import views as album_list_views
 
 
 urlpatterns = [
@@ -25,5 +26,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('', user_views.index),
     path('songs/', include('song.urls')),
+    path('albums/', include('album.urls')),
+
 
 ]
