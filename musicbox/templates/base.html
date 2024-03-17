@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Django Project{% endblock %}</title>
-    {% block styles %} {% endblock %}
-    {% block scripts %} {% endblock %}
+    {% block title %}My Django Project{% endblock %}
+    {% block styles %}
+
+    {% endblock %}
 </head>
 <body>
 
@@ -24,7 +25,8 @@
 
     </footer>
 
+    {% block scripts %}
 
+    {% endblock %}
 </body>
 </html>
-

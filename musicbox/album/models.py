@@ -15,6 +15,8 @@ class Album(models.Model):
     genre = models.CharField(max_length=30)
     release_date = models.DateField()
     artist = models.CharField(max_length=50)
+    # TODO - is Cascade the right choice for on_delete?
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     cover = models.ImageField(
         upload_to='album_covers/',
         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png'])], )
@@ -31,3 +33,13 @@ class Album(models.Model):
 
     def __str__(self):
         return self.name
+
+class Album_Comment(models.Model):
+    id = models.AutoField(primary_key=True)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    comment = models.CharField(max_length=300)
+    
+
+    def __str__(self):
+        return self.title
