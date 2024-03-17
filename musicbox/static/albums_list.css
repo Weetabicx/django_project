@@ -1,0 +1,46 @@
+.album-container {
+    display: flex;
+     min-width: 600px;
+    flex-wrap: nowrap;
+}
+
+
+.album-info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+
+.album-info img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+
+.songs-list {
+    flex: 1;
+}
+
+
+.songs-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+.songs-list li {
+    margin-bottom: 5px;
+}
+
+
+.album-info a, .songs-list a {
+    text-decoration: none;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+
+.album-info a:hover, .songs-list a:hover {
+    text-decoration: underline;
+}

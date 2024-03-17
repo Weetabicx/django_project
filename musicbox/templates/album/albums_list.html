@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'albums_list.css' %}" type="text/css">
+{% block title %}Albums List{% endblock %}
+{% block styles %}
+      <link rel="stylesheet" href="{% static 'albums_list.css' %}">
+{% endblock %}
 
 {% block content %}
-  <h2>Uploaded Albums</h2>
+  <h2>Albums List</h2>
   <div class="albums-list">
     {% for album in albums %}
       <!-- Begin .album-container wrapper for each album -->
