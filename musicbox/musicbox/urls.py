@@ -19,6 +19,8 @@ from django.urls import path, include
 from user import views as user_views
 from song import views as song_list_views
 from album import views as album_list_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -30,3 +32,5 @@ urlpatterns = [
 
 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,48 @@
+/* Style for the container holding both the album info and the songs list */
+.album-container {
+    display: flex; /* Enable flexbox layout */
+    margin-bottom: 20px; /* Add some space between each album */
+    border: 1px solid #ccc; /* Optional: adds a border around each album container */
+    padding: 10px; /* Optional: adds some padding inside the container */
+}
+
+/* Style for the album information section */
+.album-info {
+    flex: 1; /* Allow this section to grow as needed, you can adjust this value */
+    margin-right: 20px; /* Add some space between the album info and the songs list */
+}
+
+/* Style for the album cover image */
+.album-info img {
+    max-width: 100%; /* Ensure the image is responsive and doesn't overflow its container */
+    height: auto; /* Maintain the aspect ratio of the image */
+    margin-bottom: 10px; /* Add some space below the image */
+}
+
+/* Style for the songs list section */
+.songs-list {
+    flex: 1; /* Allow this section to grow as needed, you can adjust this value */
+}
+
+/* Style for the list of songs */
+.songs-list ul {
+    list-style-type: none; /* Remove the default list bullet points */
+    padding: 0; /* Remove the default padding */
+}
+
+/* Style for each song in the list */
+.songs-list li {
+    margin-bottom: 5px; /* Add some space between each song */
+}
+
+/* Optional: Style for the update and delete links */
+.album-info a, .songs-list a {
+    text-decoration: none; /* Remove the default underline */
+    color: #007bff; /* Example color for the links */
+    margin-right: 10px; /* Add some space between links */
+}
+
+/* Optional: Add a hover effect for the links */
+.album-info a:hover, .songs-list a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
