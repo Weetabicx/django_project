@@ -34,13 +34,13 @@ class Album(models.Model):
     def __str__(self):
         return self.name
 
-    def latest_albums(self) -> models.QuerySet:
+    def latest_albums() -> models.QuerySet:
         """
         returns the latest five albums
         """
         return Album.objects.order_by('-release_date')[:5]
 
-    def top_albums(self) -> list[tuple[int, float]]:
+    def top_albums() -> list[tuple[int, float]]:
         """
         returns the top five albums in the form (album_id, average_rating)
         """
