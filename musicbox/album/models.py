@@ -22,7 +22,7 @@ class Album(models.Model):
 
     def latest_albums(self) -> models.QuerySet:
         """
-        returns the latest five albums)
+        returns the latest five albums
         """
         return Album.objects.order_by('-release_date')[:5]
 
@@ -32,7 +32,7 @@ class Album(models.Model):
         """
         top_albums = {}
         for album in Album.objects.all():
-            top_albums[album.id] = (Album_Comment.objects.filter(album=album.id).aggregate(models.Avg('rating')))["rating__avg"]
+            top_albums[album] = (Album_Comment.objects.filter(album=album.id).aggregate(models.Avg('rating')))["rating__avg"]
         result = {k: v for k, v in sorted(top_albums.items(), key=lambda item: item[1], reverse=True)}
         return [(k,v) for k,v in result.items()][:5]
 
