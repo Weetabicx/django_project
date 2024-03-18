@@ -1,46 +1,18 @@
 .album-container {
-    display: flex;
-     min-width: 600px;
-    flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* 为专辑之间添加一些间距 */
 }
 
+.album-cover {
+  margin-right: 50px; /* 在封面图片和信息之间添加一些间距 */
+}
 
 .album-info {
-    flex: 1;
-    margin-right: 20px;
+  flex-grow: 1;
 }
 
-
-.album-info img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-
-.songs-list {
-    flex: 1;
-}
-
-
-.songs-list ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-
-.songs-list li {
-    margin-bottom: 5px;
-}
-
-
-.album-info a, .songs-list a {
-    text-decoration: none;
-    color: #007bff;
-    margin-right: 10px;
-}
-
-
-.album-info a:hover, .songs-list a:hover {
-    text-decoration: underline;
+.album-cover img {
+  width: 200px; /* 或者其他尺寸，根据需要调整 */
+  height: auto;
 }

@@ -1,7 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import AlbumForm, AlbumCommentForm
 from django.contrib.auth.decorators import login_required
-from .models import Album,Album_Comment
+from .models import Album, Album_Comment
 from song.models import Song
 
 
@@ -10,6 +11,7 @@ from song.models import Song
 def albums_list(request):
     albums = Album.objects.all()
     return render(request, 'album/albums_list.html', {'albums': albums})
+
 
 def upload_album(request):
     if request.method == 'POST':
@@ -20,6 +22,7 @@ def upload_album(request):
     else:
         form = AlbumForm()
     return render(request, 'album/upload_album.html', {'form': form})
+
 
 def album_update(request, id):
     album = get_object_or_404(Album, id=id)
@@ -32,6 +35,7 @@ def album_update(request, id):
         form = AlbumForm(instance=album)
     return render(request, 'album/album_form.html', {'form': form})
 
+
 def album_delete(request, id):
     album = get_object_or_404(Album, id=id)
     album.delete()
@@ -40,20 +44,19 @@ def album_delete(request, id):
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, id=album_id)
-    comments = Album_Comment.objects.filter(album=album)
+    return render(request, 'album/album_detail.html', {'album': album})
 
+
+def add_comment_to_album(request, album_id):
+    album = get_object_or_404(Album, id=album_id)
     if request.method == 'POST':
-        comment_form = AlbumCommentForm(request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.album = album  # 将新评论与当前专辑关联
-            new_comment.save()
-            return redirect('album_detail', album_id=album.id)
-    else:
-        comment_form = AlbumCommentForm()
-
-    return render(request, 'album/album_detail.html', {
-        'album': album,
-        'comments': comments,
-        'comment_form': comment_form
-    })
+        form = AlbumCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.album = album
+            comment.save()
+            return JsonResponse({
+                'rating': comment.rating,
+                'comment': comment.comment,
+            })
+    return JsonResponse({'error': 'Invalid request'}, status=400)

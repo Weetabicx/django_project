@@ -21,7 +21,7 @@ from song import views as song_list_views
 from album import views as album_list_views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from album import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('', user_views.index),
     path('songs/', include('song.urls')),
     path('albums/', include('album.urls')),
+    path('albums/<int:album_id>/', views.album_detail, name='album_detail'),
 
 
 ]

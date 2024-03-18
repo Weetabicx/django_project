@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator, FileExtensionValidator
 from PIL import Image
-import io
-from django.core.files.base import ContentFile
+from django.urls import reverse
 
 
 class Album(models.Model):
@@ -24,13 +23,16 @@ class Album(models.Model):
         super(Album, self).save(*args, **kwargs)
         if self.cover:
             img = Image.open(self.cover.path)
-            if img.height > 800 or img.width > 800:
-                output_size = (800, 800)
+            if img.height > 1000 or img.width > 1000:
+                output_size = (1000, 1000)
                 img.thumbnail(output_size)
                 img.save(self.cover.path)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('album_detail', kwargs={'album_id': self.id})
 
 class Album_Comment(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='comments')
