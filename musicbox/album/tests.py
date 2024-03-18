@@ -4,9 +4,9 @@ from album.models import Album, Album_Comment
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-# Create your tests here.
 HEADER = "\n\n==============================!"
 FOOTER = "!==============================\n"
+
 class AlbumModelsTestCase(TestCase):
     """Tests for the album models"""
 
