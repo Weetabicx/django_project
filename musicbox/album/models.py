@@ -31,3 +31,11 @@ class Album(models.Model):
 
     def __str__(self):
         return self.name
+
+class Album_Comment(models.Model):
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='comments')
+    rating = models.IntegerField()
+    comment = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.comment[:20]

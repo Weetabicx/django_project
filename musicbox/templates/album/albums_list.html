@@ -22,6 +22,7 @@
           <p>Type: {{ album.type }}</p>
           <a href="{% url 'album_update' album.id %}">Update</a> |
           <a href="{% url 'album_delete' album.id %}" onclick="return confirm('Are you sure you want to delete this album?');">Delete</a>
+          <button class="toggle-comments" data-album-id="{{ album.id }}">Toggle Comments</button>
         </div>
         <div class="songs-list">
           <h2>Songs</h2>
@@ -33,11 +34,25 @@
             {% endfor %}
           </ul>
         </div>
+        <div class="comments-container" id="comments-for-album-{{ album.id }}" style="display: none;">
+          <h3>Comments</h3>
+          {% for comment in album.comments.all %}
+          <div class="comment">
+            <p>Rating: {{ comment.rating }} - Comment: {{ comment.comment }}</p>
+          </div>
+          {% empty %}
+          <p>No comments yet.</p>
+        {% endfor %}
+    </div>
       </div>
       <!-- End .album-container -->
     {% empty %}
       <p>No albums uploaded yet.</p>
     {% endfor %}
     <a href="{% url 'upload_album' %}" class="button" style="text-decoration: none; color: black;">Upload new one</a>
+    <div>
+       <a href="{% url 'index' %}" class="button" style="text-decoration: none; color: black;">Return</a>
+    </div>
   </div>
+   <script src="{% static 'toggle_comments.js' %}"></script>
 {% endblock %}

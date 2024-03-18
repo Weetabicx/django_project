@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import AlbumForm
+from .forms import AlbumForm, AlbumCommentForm
 from django.contrib.auth.decorators import login_required
-from .models import Album
+from .models import Album,Album_Comment
 from song.models import Song
 
 
@@ -39,6 +39,21 @@ def album_delete(request, id):
 
 
 def album_detail(request, album_id):
-    album = get_object_or_404(Album, pk=album_id)
-    songs = Song.objects.filter(album=album)
-    return render(request, 'album/album_detail.html', {'album': album, 'songs': songs})
+    album = get_object_or_404(Album, id=album_id)
+    comments = Album_Comment.objects.filter(album=album)  # 获取专辑的所有评论
+
+    if request.method == 'POST':
+        comment_form = AlbumCommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.album = album  # 将新评论与当前专辑关联
+            new_comment.save()
+            return redirect('album_detail', album_id=album.id)  # 重定向回专辑详情页
+    else:
+        comment_form = AlbumCommentForm()
+
+    return render(request, 'album/album_detail.html', {
+        'album': album,
+        'comments': comments,
+        'comment_form': comment_form
+    })
