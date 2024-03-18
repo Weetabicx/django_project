@@ -11,6 +11,7 @@ def albums_list(request):
     albums = Album.objects.all()
     return render(request, 'album/albums_list.html', {'albums': albums})
 
+@login_required
 def upload_album(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST, request.FILES)
@@ -21,6 +22,7 @@ def upload_album(request):
         form = AlbumForm()
     return render(request, 'album/upload_album.html', {'form': form})
 
+@login_required
 def album_update(request, id):
     album = get_object_or_404(Album, id=id)
     if request.method == 'POST':
@@ -32,6 +34,7 @@ def album_update(request, id):
         form = AlbumForm(instance=album)
     return render(request, 'album/album_form.html', {'form': form})
 
+@login_required
 def album_delete(request, id):
     album = get_object_or_404(Album, id=id)
     album.delete()
