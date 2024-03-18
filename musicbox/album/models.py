@@ -19,7 +19,7 @@ class Album(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     cover = models.ImageField(
         upload_to='album_covers/',
-        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png'])], )
+        validators=[FileExtensionValidator(allowed_extensions=['jpeg','jpg', 'png'])], )
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.type + '-' + self.name)  # Added a dash for readability
