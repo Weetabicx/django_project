@@ -34,10 +34,15 @@ class Album(models.Model):
     def get_absolute_url(self):
         return reverse('album_detail', kwargs={'album_id': self.id})
 
+
 class Album_Comment(models.Model):
+    id = models.AutoField(primary_key=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='comments')
     rating = models.IntegerField()
     comment = models.CharField(max_length=300)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.comment[:20]
+
+

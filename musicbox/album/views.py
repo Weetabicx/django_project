@@ -44,19 +44,17 @@ def album_delete(request, id):
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, id=album_id)
-    return render(request, 'album/album_detail.html', {'album': album})
-
-
-def add_comment_to_album(request, album_id):
-    album = get_object_or_404(Album, id=album_id)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AlbumCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.album = album
+            comment.author = request.user
             comment.save()
-            return JsonResponse({
-                'rating': comment.rating,
-                'comment': comment.comment,
-            })
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+            return redirect('album_detail', album_id=album.id)
+    else:
+        form = AlbumCommentForm()
+    return render(request, 'album/album_detail.html', {'album': album, 'comments': comment})
+
+
+

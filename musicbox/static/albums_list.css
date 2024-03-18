@@ -16,3 +16,9 @@
   width: 200px; /* 或者其他尺寸，根据需要调整 */
   height: auto;
 }
+
+.album-detail-container {
+    display: flex;
+    align-items: flex-start; /* 如果你希望封面和信息顶部对齐 */
+    margin-top: 20px;
+}
