@@ -40,7 +40,7 @@ def album_delete(request, id):
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, id=album_id)
-    comments = Album_Comment.objects.filter(album=album)  # 获取专辑的所有评论
+    comments = Album_Comment.objects.filter(album=album)
 
     if request.method == 'POST':
         comment_form = AlbumCommentForm(request.POST)
@@ -48,7 +48,7 @@ def album_detail(request, album_id):
             new_comment = comment_form.save(commit=False)
             new_comment.album = album  # 将新评论与当前专辑关联
             new_comment.save()
-            return redirect('album_detail', album_id=album.id)  # 重定向回专辑详情页
+            return redirect('album_detail', album_id=album.id)
     else:
         comment_form = AlbumCommentForm()
 
