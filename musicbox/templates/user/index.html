@@ -1,56 +1,55 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    MusicBook - Discover New Music
-{% endblock %}
-
 {% block styles %}
 {{ block.super }}
 <style>
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    #search {
-        text-align: center;
-    }
-    .new-releases .album {
-        margin: 10px;
-        text-align: center;
-    }
+	.vh-88 {
+		height: 88vh;
+	}
+	.vh-30 {
+		height: 30vh;
+	}
+	.w-94 {
+		width: 94%;
+	}
+	.h-46 {
+		height: 46%;
+	}
+	.h-98 {
+		height: 98.8%;
+	}
 </style>
 {% endblock %}
 
 {% block content %}
-<header>
-    <div>
-        <h1>Welcome to MusicBook</h1>
-    </div>
-    <div>
-        <a href="{% url 'user:login' %}" class="button">Login</a>
-    </div>
-</header>
-<main>
-    <form action="" method="POST">
-        {% csrf_token %}
-    <section id="search" style="margin-top: 20px;">
-        <h2>Find Your Next Favorite Song</h2>
-        <label>
-            <input type="text" name="query" placeholder="Search by artist, album, or track" style="width: 100%; max-width: 200px; padding: 10px;">
-        </label>
-        <button type="submit">Search</button> <!--TODO-->
-    </section>
-    </form>
-    <div>
-        <nav>
-            <ul>
-                <li><a href="{% url 'album:list' %}">Albums</a></li>
-                <li><a href="{% url 'song:list' %}">Song list</a></li>
-                <li><a href="#">New Releases</a></li> <!--TODO show the name, artist, album-->
-                <li><a href="#">My Collection</a></li> <!--TODO only show this after people login-->
-            </ul>
-        </nav>
-    </div>
-</main>
+
+<section class="bg-dark text-light p-5 text-center text-sm-start align-items-center justify-content-inbetween">
+	<div class="container">
+		<div class="row d-sm-flex">
+			<div class="col">
+				<h1>Find Your Next Favorite Song!</h1>
+				<p class="lead mb-4">Search by artist, album, or track! Browse new releases and popular albums below!</p>
+			</div>
+			<div class="col-md-6 my-3">
+				<div class="input-group py-3">
+					<input type="text" class="form-control" placeholder="Explore!">
+					<button class="btn btn-primary" type="button">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="bg-light text-dark text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<card>
+					<h1>Cool!</h1>
+				</card>
+			</div>
+		</div>
+	</div>
+</section>
+
 {% endblock %}
