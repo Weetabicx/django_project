@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-MusicBook - Discover New Music
+    MusicBook - Discover New Music
 {% endblock %}
 
 {% block styles %}
@@ -28,22 +28,25 @@ MusicBook - Discover New Music
         <h1>Welcome to MusicBook</h1>
     </div>
     <div>
-        <a href="{% url 'login' %}" class="button" style="text-decoration: none; color: black;">Login</a>
+        <a href="{% url 'user:login' %}" class="button">Login</a>
     </div>
 </header>
 <main>
+    <form action="" method="POST">
+        {% csrf_token %}
     <section id="search" style="margin-top: 20px;">
         <h2>Find Your Next Favorite Song</h2>
         <label>
-            <input type="text" placeholder="Search by artist, album, or track" style="width: 100%; max-width: 200px; padding: 10px;">
+            <input type="text" name="query" placeholder="Search by artist, album, or track" style="width: 100%; max-width: 200px; padding: 10px;">
         </label>
-        <button>Search</button> <!--TODO-->
+        <button type="submit">Search</button> <!--TODO-->
     </section>
+    </form>
     <div>
         <nav>
             <ul>
-                <li><a href="{% url 'albums_list' %}">Albums</a></li>
-                <li><a href="{% url 'song_list' %}">Song list</a></li>
+                <li><a href="{% url 'album:list' %}">Albums</a></li>
+                <li><a href="{% url 'song:list' %}">Song list</a></li>
                 <li><a href="#">New Releases</a></li> <!--TODO show the name, artist, album-->
                 <li><a href="#">My Collection</a></li> <!--TODO only show this after people login-->
             </ul>
