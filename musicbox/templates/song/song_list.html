@@ -19,8 +19,8 @@
     <div class="songs-list">
         {% for song in songs %}
         <div class="song">
-            {% if song.front_cover %}
-            <img src="{{ song.front_cover.url }}" alt="Front Cover">
+            {% if song.album.cover %}
+            <img src="{{ song.album.cover.url }}" alt="Front Cover">
             {% endif %}
             <div class="song-info">
                 <h2>{{ song.name }}</h2>
