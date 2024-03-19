@@ -3,7 +3,7 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'song_comments.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 {% endblock %}
 
 {% block content %}
@@ -45,8 +45,8 @@
       <a href="{% url 'song_list' %}">Back to song list</a>
     </div>
  </div>
-  <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="commentModalLabel">Add a Comment</h5>
@@ -54,7 +54,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form method="post" action="{% url 'add_comment_url' %}">
+              <form method="post" action="{% url 'add_comment' song.id %}">
                 <div class="modal-body">
                   {% csrf_token %}
                   {{ comment_form.as_p }}

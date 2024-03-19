@@ -50,13 +50,15 @@ def update_song(request, song_id):
         form = SongForm(instance=song)
     return render(request, 'song/edit_song.html', {'form': form, 'song': song})
 
-def add_comment_view(request):
+
+def add_comment_to_song(request, song_id):
+    song = get_object_or_404(Song, pk=song_id)
     if request.method == 'POST':
-        comment_form = SongCommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
+        form = SongCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.song = song
             comment.save()
-            return redirect('redirect_to_some_view')
+            return redirect('song_detail', song_id=song.id)
     else:
-        comment_form = SongCommentForm()
-    return redirect('redirect_to_some_view')
+        form = SongCommentForm()
