@@ -24,7 +24,7 @@ class Song(models.Model):
 
 class Song_Comment(models.Model):
     id = models.AutoField(primary_key=True)
-    album = models.ForeignKey(Song, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
     rating = models.IntegerField()
     comment = models.CharField(max_length=300)
     

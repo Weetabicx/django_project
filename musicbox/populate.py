@@ -10,7 +10,7 @@ from django.core.files import File
 from django.contrib.auth.models import User
 from user.models import UserProfile
 from album.models import Album
-from song.models import Song
+from song.models import Song, Song_Comment
 
 
 def populate() -> None:
@@ -98,10 +98,11 @@ def create_reviews() -> None:
 				)
 			album_comment.save()
 
-		for song in album.song_set.all():
-			song_comment = song.song_comment_set.create(
+		for song in Song.objects.filter(album=album):
+			song_comment = Song_Comment.create(
 				rating=random.randint(1, 10),
-				comment=f"Comment {i}"
+				comment=f"Comment {i}",
+				song=song
 				)
 			song_comment.save()
 
