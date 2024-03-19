@@ -6,6 +6,12 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 def index(request):
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        if query:
+            return redirect('album:search', query)
+        else:
+            messages.error(request, 'Please enter a search query')
     return render(request, 'user/index.html')
 
 

@@ -5,8 +5,12 @@ from .models import Album
 from song.models import Song
 
 
-# Create your views here.
-
+def search(request, query):
+    albums = Album.objects.filter(name__icontains=query)
+    for album in albums:
+        album.songs = Song.objects.filter(album=album)
+    return render(request, 'album/albums_list.html', {'albums': albums})
+                  
 def albums_list(request):
     albums = Album.objects.all()
     for album in albums:
