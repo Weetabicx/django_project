@@ -1,6 +1,7 @@
 import importlib
 from django.test import TestCase
 from album.models import Album, Album_Comment
+from song.models import Song
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -71,5 +72,7 @@ class AlbumViewsTestCase(TestCase):
     
     def test_albums_update(self,):
         """Test that the album_update view works"""
-        response = self.client.post('/albums/album_update/1/', {'name': 'Test Album', 'type': 'Album', 'genre': 'Rock', 'release_date': '2020-01-01', 'artist': 'Test Artist', 'owner': 1})
-        self.assertEqual(response.status_code, 200)
+        response = self.client.post('/albums/album/1/update/', {'name': 'Test Album', 'type': 'Album', 'genre': 'Rock', 'release_date': '2020-01-01', 'artist': 'Test Artist'})
+        print(response.content.decode('utf-8'))
+        self.assertEqual(response.status_code, 200, f"{HEADER}Expected status code 200, found {response.status_code}.{FOOTER}")
+    
