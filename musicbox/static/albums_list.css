@@ -1,11 +1,11 @@
 .album-container {
   display: flex;
   align-items: center;
-  margin-bottom: 20px; /* 为专辑之间添加一些间距 */
+  margin-bottom: 20px;
 }
 
 .album-cover {
-  margin-right: 50px; /* 在封面图片和信息之间添加一些间距 */
+  margin-right: 50px;
 }
 
 .album-info {
@@ -13,12 +13,12 @@
 }
 
 .album-cover img {
-  width: 200px; /* 或者其他尺寸，根据需要调整 */
+  width: 200px;
   height: auto;
 }
 
 .album-detail-container {
     display: flex;
-    align-items: flex-start; /* 如果你希望封面和信息顶部对齐 */
+    align-items: flex-start;
     margin-top: 20px;
 }

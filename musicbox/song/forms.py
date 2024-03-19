@@ -1,14 +1,12 @@
 from django import forms
 from .models import Song
 from album.models import Album
-
+from django.core.exceptions import ValidationError
 
 class SongForm(forms.ModelForm):
-    new_album_name = forms.CharField(max_length=100, required=False, help_text="Or create a new album")
-
     class Meta:
         model = Song
-        fields = ['title', 'genre',  'artist', 'album', 'new_album_name']
+        fields = ['title', 'genre', 'artist', 'album']
         widgets = {
-            'album': forms.Select(choices=[(album.id, album.name) for album in Album.objects.all()] + [('new', 'Create New Album')]),
+            'album': forms.Select(choices=[(album.id, album.name) for album in Album.objects.all()])
         }

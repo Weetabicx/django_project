@@ -3,14 +3,20 @@
 {% block content %}
 <div class="container">
     <h2>Upload a Song</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Upload</button>
     </form>
-</div>
-
     <div>
-            <a href="{% url 'song_list' %}" class="button" style="text-decoration: none; color: black;">return</a>
+        <a href="{% url 'song_list' %}" class="button" style="text-decoration: none; color: black;">Return to Song List</a>
     </div>
+</div>
 {% endblock %}

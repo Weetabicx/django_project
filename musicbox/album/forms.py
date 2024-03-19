@@ -5,7 +5,7 @@ from .models import Album_Comment
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        fields = ['cover','name', 'type', 'genre', 'release_date', 'artist']
+        fields = ['cover', 'artist', 'name', 'type', 'genre', 'release_date']
         widgets = {
             'release_date': forms.DateInput(attrs={'type': 'date'}),
         }
