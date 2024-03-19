@@ -29,4 +29,4 @@ class Song_Comment(models.Model):
     comment = models.CharField(max_length=300)
     
     def __str__(self):
-        return self.title    
+        return f"Comment: {self.comment} - Rating: {self.rating}"    

@@ -9,7 +9,7 @@ django.setup()
 from django.core.files import File
 from django.contrib.auth.models import User
 from user.models import UserProfile
-from album.models import Album
+from album.models import Album, Album_Comment
 from song.models import Song, Song_Comment
 
 
@@ -92,19 +92,20 @@ def create_songs() -> None:
 def create_reviews() -> None:
 	for album in Album.objects.all():
 		for i in range(1, 11):
-			album_comment = album.album_comment_set.create(
-				rating=random.randint(1, 10),
-				comment=f"Comment {i}"
-				)
-			album_comment.save()
-
-		for song in Song.objects.filter(album=album):
-			song_comment = Song_Comment.create(
+			review = Album_Comment.objects.create(
 				rating=random.randint(1, 10),
 				comment=f"Comment {i}",
+				album=album
+				)
+			review.save()
+
+		for song in Song.objects.filter(album=album):
+			review = Song_Comment.objects.create(
+				rating=random.randint(1, 10),
+				comment=f"Comment {1}",
 				song=song
 				)
-			song_comment.save()
+			review.save()
 
 if __name__ == "__main__":
 	populate()

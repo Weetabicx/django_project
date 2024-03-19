@@ -29,7 +29,11 @@
                 <p>Type: {{ song.album.type }}</p>
                 <p>Genre: {{ song.genre }}</p>
                 <p>Average Rating: {{ song.avgrating }}</p>
-                <p>Reviews: {{ song.reviews }}</p>
+                <p>Reviews: 
+                {% for review in song.reviews %}
+                    {{ review }}
+                {% endfor %}
+                </p>
             </div>
             {% if song.music_link %}
             <a href="{{ song.music_link }}" class="song-link">Listen</a>

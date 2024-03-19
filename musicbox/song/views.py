@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from .models import Song
+from .models import *
 from .forms import SongForm
 from django.http import HttpResponseRedirect
 
@@ -11,7 +11,8 @@ from django.http import HttpResponseRedirect
 def song_list_view(request):
     songs = Song.objects.all().order_by('-release_date')
     for song in songs:
-        print(f"{song.title} - {song.album.name}")
+        song.reviews = Song_Comment.objects.filter(song=song)
+        song.avgrating = Song_Comment.objects.filter(song=song).aggregate(models.Avg('rating'))['rating__avg']
     return render(request, 'song/song_list.html', {'songs': songs})
 
 
