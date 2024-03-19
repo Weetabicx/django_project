@@ -33,20 +33,14 @@
         </ul>
       </div>
 
+        <!-- Trigger/Open The Modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">
           Add Comment
         </button>
-        <a href="{% url 'update_song' song.id %}" class="button">Edit Song</a>
-        <form action="{% url 'delete_song' song.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit" onclick="return confirm('Are you sure you want to delete this song?');">Delete Song</button>
-        </form>
 
-      <a href="{% url 'song_list' %}">Back to song list</a>
-    </div>
- </div>
-    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <!-- The Modal for Adding Comments -->
+        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="commentModalLabel">Add a Comment</h5>
@@ -54,9 +48,9 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form method="post" action="{% url 'add_comment' song.id %}">
+              <form method="post" action="{% url 'add_comment_to_song' song.id %}">
+                {% csrf_token %}
                 <div class="modal-body">
-                  {% csrf_token %}
                   {{ comment_form.as_p }}
                 </div>
                 <div class="modal-footer">
@@ -67,6 +61,17 @@
             </div>
           </div>
         </div>
+
+        <a href="{% url 'update_song' song.id %}" class="button">Edit Song</a>
+        <form action="{% url 'delete_song' song.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" onclick="return confirm('Are you sure you want to delete this song?');">Delete Song</button>
+        </form>
+
+      <a href="{% url 'song_list' %}">Back to song list</a>
+    </div>
+ </div>
+
 {% endblock %}
 {% block javascript %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
