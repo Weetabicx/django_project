@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h2>Search Results for "{{ query }}"</h2>
+
+    {% if songs.exists or albums.exists %}
+        <div>
+            <h3>Songs</h3>
+            {% if songs.exists %}
+                <ul>
+                    {% for song in songs %}
+                        <li>{{ song.title }} by {{ song.artist }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No songs found.</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <h3>Albums</h3>
+            {% if albums.exists %}
+                <ul>
+                    {% for album in albums %}
+                        <li><a href="{{ album.get_absolute_url }}">{{ album.name }}</a> - {{ album.artist }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No albums found.</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No results found for "{{ query }}".</p>
+    {% endif %}
+    <a href="{% url 'index' %}" class="button" style="text-decoration: none; color: black;">return</a>
+</div>
+{% endblock %}

@@ -10,20 +10,7 @@
   <div>
     {% for song in songs %}
       <div class="song">
-        <p>{{ song.title }} - Uploaded on: {{ song.uploaded_at }}</p>
-        <button class="toggle-reviews-btn" data-song-id="{{ song.id }}">See Comments</button>
-
-        <div class="review-section" id="reviews-for-song-{{ song.id }}" style="display: none;">
-            <h4>Reviews</h4>
-            {% for review in song.comments.all %}
-              <div class="review">
-                  <p>Ranking: {{ review.rating }}</p>
-                  <p>Review: {{ review.comment }}</p>
-              </div>
-            {% empty %}
-              <p>No reviews yet</p>
-            {% endfor %}
-        </div>
+         <p><a href="{% url 'song_detail' song.id %}">{{ song.title }}</a> - Uploaded on: {{ song.uploaded_at }}</p>
       </div>
     {% empty %}
       <p>No songs have been uploaded yet.</p>

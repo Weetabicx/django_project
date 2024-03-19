@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Song
-from .forms import SongForm
+from .forms import SongForm, SongCommentForm
 from django.contrib import messages
 from album.models import Album
 from album.forms import AlbumForm
@@ -29,7 +29,34 @@ def upload_song(request):
 
 # @login_required
 def delete_song(request, song_id):
+    song = get_object_or_404(Song, id=song_id)
+    song.delete()
+    return redirect('song_list')
+
+
+def song_detail_view(request, song_id):
+    song = get_object_or_404(Song, id=song_id)
+    return render(request, 'song/song_detail.html', {'song': song})
+
+
+def update_song(request, song_id):
+    song = get_object_or_404(Song, id=song_id)
     if request.method == 'POST':
-        song = get_object_or_404(Song, id=song_id)
-        song.delete()
-        return redirect('song_list')
+        form = SongForm(request.POST, instance=song)
+        if form.is_valid():
+            form.save()
+            return redirect('song_detail', song_id=song.id)
+    else:
+        form = SongForm(instance=song)
+    return render(request, 'song/edit_song.html', {'form': form, 'song': song})
+
+def add_comment_view(request):
+    if request.method == 'POST':
+        comment_form = SongCommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.save()
+            return redirect('redirect_to_some_view')
+    else:
+        comment_form = SongCommentForm()
+    return redirect('redirect_to_some_view')

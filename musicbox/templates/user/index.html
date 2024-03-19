@@ -32,13 +32,10 @@ MusicBook - Discover New Music
     </div>
 </header>
 <main>
-    <section id="search" style="margin-top: 20px;">
-        <h2>Find Your Next Favorite Song</h2>
-        <label>
-            <input type="text" placeholder="Search by artist, album, or track" style="width: 100%; max-width: 200px; padding: 10px;">
-        </label>
-        <button>Search</button> <!--TODO-->
-    </section>
+    <form method="get" action="{% url 'search_results' %}">
+        <input type="text" name="query" placeholder="Search by artist, album, or track" style="width: 100%; max-width: 200px; padding: 10px;">
+        <button type="submit">Search</button>
+    </form>
     <div>
         <nav>
             <ul>
