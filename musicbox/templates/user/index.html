@@ -6,6 +6,9 @@
 	.vh-88 {
 		height: 88vh;
 	}
+	.vh-30 {
+		height: 30vh;
+	}
 	.w-94 {
 		width: 94%;
 	}
@@ -19,53 +22,34 @@
 {% endblock %}
 
 {% block content %}
-<main class="container-fluid">
-	
-	<div class="row">
-	
-		<div class="col">
-			<div class="card vh-88 p-2 position-relative m-2 opacity-90">
-				<div>
-					<div class="card h-46 w-94 position-absolute top-5 start-4 m-2">
-						<div class="card-header">
-							<h4>Recommended</h4>
-						</div>
-					</div>
-				</div>
-				<br>
-				<div>
-					<div class="card h-46 w-94 position-absolute top-50 start-4 m-2">
-						<div class="card-header">
-							<h4>New Releases</h4>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="col-sm-8">
-			<div class="card vh-88 p-3 m-2 opacity-90">
-				<div class="card h-98">
-					<div class="card-header">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<h4>Top Albums</h4>
-								</div>
-								<div class="col">
-									<form class="d-flex" role="search">
-										<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-										<button class="btn btn-secondary" type="submit">Search</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-	</div>
 
-</main>
+<section class="bg-dark text-light p-5 text-center text-sm-start align-items-center justify-content-inbetween">
+	<div class="container">
+		<div class="row d-sm-flex">
+			<div class="col">
+				<h1>Find Your Next Favorite Song!</h1>
+				<p class="lead mb-4">Search by artist, album, or track! Browse new releases and popular albums below!</p>
+			</div>
+			<div class="col-md-6 my-3">
+				<div class="input-group py-3">
+					<input type="text" class="form-control" placeholder="Explore!">
+					<button class="btn btn-primary" type="button">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="bg-light text-dark text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<card>
+					<h1>Cool!</h1>
+				</card>
+			</div>
+		</div>
+	</div>
+</section>
+
 {% endblock %}
