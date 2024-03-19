@@ -1,5 +1,6 @@
 import os, random
 from datetime import datetime
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "musicbox.settings")
 
 import django
@@ -9,6 +10,7 @@ from django.core.files import File
 from django.contrib.auth.models import User
 from user.models import UserProfile
 from album.models import Album
+from song.models import Song
 
 
 def populate() -> None:
@@ -67,14 +69,25 @@ def create_albums() -> None:
 
 def create_songs() -> None:
 	for album in Album.objects.all():
-		for i in range(1, 11):
-			song = album.song_set.create(
-				title=f"Song {i}",
+		if album.type != "Album":
+			song = Song.objects.create(
+				title=album.name,
 				genre=album.genre,
 				release_date=album.release_date,
-				artist=album.artist
+				artist=album.artist,
+				album = album
 				)
 			song.save()
+		else:
+			for i in range(1, 11):
+				song = Song.objects.create(
+					title=f"{album.name} - Track {i}",
+					genre=album.genre,
+					release_date=album.release_date,
+					artist=album.artist,
+					album=album
+					)
+				song.save()
 
 def create_reviews() -> None:
 	for album in Album.objects.all():

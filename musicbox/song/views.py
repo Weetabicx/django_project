@@ -10,6 +10,8 @@ from django.http import HttpResponseRedirect
 # views.py
 def song_list_view(request):
     songs = Song.objects.all().order_by('-release_date')
+    for song in songs:
+        print(f"{song.title} - {song.album.name}")
     return render(request, 'song/song_list.html', {'songs': songs})
 
 

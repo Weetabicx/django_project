@@ -23,9 +23,10 @@
             <img src="{{ song.album.cover.url }}" alt="Front Cover">
             {% endif %}
             <div class="song-info">
-                <h2>{{ song.name }}</h2>
+                <h2>{{ song.title }}</h2>
                 <p>Arist: {{ song.artist }}</p>
                 <p>Album: {{ song.album }}</p>
+                <p>Type: {{ song.album.type }}</p>
                 <p>Genre: {{ song.genre }}</p>
                 <p>Average Rating: {{ song.avgrating }}</p>
                 <p>Reviews: {{ song.reviews }}</p>
