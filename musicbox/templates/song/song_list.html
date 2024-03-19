@@ -19,31 +19,36 @@
     <div class="songs-list">
         {% for song in songs %}
         <div class="song">
-            {% if song.front_cover %}
-            <img src="{{ song.front_cover.url }}" alt="Front Cover">
+            {% if song.album.cover %}
+            <img src="{{ song.album.cover.url }}" alt="Front Cover">
             {% endif %}
             <div class="song-info">
-                <h2>{{ song.name }}</h2>
-                <p>Singer: {{ song.singer }}</p>
+                <h2>{{ song.title }}</h2>
+                <p>Arist: {{ song.artist }}</p>
                 <p>Album: {{ song.album }}</p>
-                <p>Style: {{ song.style }}</p>
+                <p>Type: {{ song.album.type }}</p>
+                <p>Genre: {{ song.genre }}</p>
                 <p>Average Rating: {{ song.avgrating }}</p>
-                <p>Reviews: {{ song.reviews }}</p>
+                <p>Reviews: 
+                {% for review in song.reviews %}
+                    {{ review }}
+                {% endfor %}
+                </p>
             </div>
             {% if song.music_link %}
             <a href="{{ song.music_link }}" class="song-link">Listen</a>
             {% endif %}
-            <form action="{% url 'delete_song' song.id %}" method="post">
+            <form action="{% url 'album:delete' song.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit">Delete</button>
             </form>
         </div>
         {% endfor %}
         <div>
-            <a href="{% url 'upload_song' %}" class="button" style="text-decoration: none; color: black;">upload your song</a>
+            <a href="{% url 'song:upload' %}" class="button" style="text-decoration: none; color: black;">upload your song</a>
         </div>
         <div>
-            <a href="{% url 'index' %}" class="button" style="text-decoration: none; color: black;">return</a>
+            <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">return</a>
         </div>
     </div>
 </main>
