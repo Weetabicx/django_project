@@ -38,7 +38,7 @@ def create_users() -> None:
 		user.set_password(f"{firstname}123")
 		user.save()
 
-		user_profile = UserProfile.objects.create(user=user, picture="default.jpg")
+		user_profile = UserProfile.objects.create(user=user, picture="/default/profile.png")
 		user_profile.save()
 		
 def create_albums() -> None:
@@ -60,7 +60,8 @@ def create_albums() -> None:
 			genre=data["genre"],
 			release_date=datetime.strptime(data["release_date"], "%Y-%m-%d"),
 			artist=data["artist"],
-			owner=User.objects.all()[random.randint(0, User.objects.count() - 1)]
+			owner=User.objects.all()[random.randint(0, User.objects.count() - 1)],
+			cover=f"default/album.jpg"
 			)
 		album.save()
 
