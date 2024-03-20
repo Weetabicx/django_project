@@ -3,16 +3,31 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from album.models import Album
 
 # Create your views here.
 def index(request):
+
+    carouselAlbums1 = Album.objects.order_by('-release_date')[:3]
+    carouselAlbums2 = Album.objects.order_by('-release_date')[3:6]
+    carouselAlbums3 = Album.objects.order_by('-release_date')[6:9]
+    
+    topAlbums = Album.top_albums()
+
+    context_dic={}
+    context_dic['carousel1'] = carouselAlbums1
+    context_dic['carousel2'] = carouselAlbums2
+    context_dic['carousel3'] = carouselAlbums3
+    context_dic['topAlbums'] = topAlbums
+
     if request.method == 'POST':
         query = request.POST.get('query')
         if query:
             return redirect('album:search', query)
         else:
             messages.error(request, 'Please enter a search query')
-    return render(request, 'user/index.html')
+            
+    return render(request, 'user/index.html', context=context_dic)
 
 
 def login(request):
