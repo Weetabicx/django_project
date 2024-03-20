@@ -38,8 +38,10 @@
 			</div>
 			<div class="col-md-6 my-3">
 				<div class="input-group py-3">
-					<input type="text" class="form-control" placeholder="Explore!">
-					<button class="btn btn-primary" type="button">Search</button>
+					<input class="form-control" type="text" name="query" placeholder="Search by artist, album, or track">
+					<form method="get" action="{% url 'user:search' %}">
+					<button class="btn btn-primary" type="submit">Search</button>
+					</form>
 				</div>
 			</div>
 		</div>

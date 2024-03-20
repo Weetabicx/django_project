@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Song
+from .models import *
 from .forms import SongForm, SongCommentForm
 from django.contrib import messages
 from album.models import Album
@@ -62,6 +62,6 @@ def add_comment_to_song(request, song_id):
             comment = form.save(commit=False)
             comment.song = song
             comment.save()
-            return redirect('song_detail', song_id=song.id)
+            return redirect('song:details', song_id=song.id)
     else:
         form = SongCommentForm()

@@ -7,9 +7,9 @@ class SongForm(forms.ModelForm):
     class Meta:
         model = Song
         fields = ['title', 'genre', 'artist', 'album']
-        widgets = {
-            'album': forms.Select(choices=[(album.id, album.name) for album in Album.objects.all()])
-        }
+        # widgets = {
+        #     'album': forms.Select(choices=[(album.id, album.name) for album in Album.objects.all()])
+        # }
 
 class SongCommentForm(forms.ModelForm):
     class Meta:
