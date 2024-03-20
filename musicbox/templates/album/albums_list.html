@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Albums List{% endblock %}
 {% block styles %}
-      <link rel="stylesheet" href="{% static 'albums_list.css' %}">
+<link rel="stylesheet" href="{% static 'albums_list.css' %}">
 {% endblock %}
 {% block content %}
   <h2>Albums List</h2>
@@ -39,5 +39,8 @@
     {% endfor %}
     <br>
     <a href="{% url 'album:upload' %}" class="button" style="text-decoration: none; color: black;">Upload new one</a>
+    <div>
+      <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">Return</a>
+    </div>
   </div>
 {% endblock %}

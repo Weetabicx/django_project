@@ -58,4 +58,26 @@
 	</div>
 </section>
 
+<header>
+    <div>
+        <h1>Welcome to MusicBook</h1>
+    </div>
+    <div>
+        <a href="{% url 'login' %}" class="button" style="text-decoration: none; color: black;">Login</a>
+    </div>
+</header>
+<main>
+    <form method="get" action="{% url 'search_results' %}">
+        <input type="text" name="query" placeholder="Search by artist, album, or track" style="width: 100%; max-width: 200px; padding: 10px;">
+        <button type="submit">Search</button>
+    </form>
+    <div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'albums_list' %}">Albums</a></li>
+                <li><a href="{% url 'song_list' %}">Song list</a></li>
+            </ul>
+        </nav>
+    </div>
+</main>
 {% endblock %}

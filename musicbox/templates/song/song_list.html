@@ -1,17 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-{% block title %}Songs List{% endblock %}
-
-{% block styles %}
-     <link rel="stylesheet" href="{% static 'song_list.css' %}">
-{% endblock %}
-
-{% block scripts %}
-        <script src="{% static 'delete_song.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 
 <main>
@@ -51,5 +40,10 @@
             <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">return</a>
         </div>
     </div>
+    {% block javascript %}
+    <script src="{% static 'toggle_reviews.js' %}"></script>
+    <script src="{% static 'song_form.js' %}"></script>
+
+       {% endblock %}
 </main>
 {% endblock %}
