@@ -65,3 +65,4 @@ def add_comment_to_song(request, song_id):
             return redirect('song:details', song_id=song.id)
     else:
         form = SongCommentForm()
+        return redirect('song:details', song_id=song.id)
