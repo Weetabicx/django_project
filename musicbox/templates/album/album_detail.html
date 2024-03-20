@@ -23,7 +23,7 @@
                 <p>Type: {{ album.type }}</p>
                 <h3>Songs</h3>
                 <ul>
-                    {% for song in album.songs.all %}
+                    {% for song in songs %}
                         <li>{{ song.title }} - {{ song.genre }} - {{ song.release_date }}</li>
                     {% empty %}
                         <li>No songs in this album.</li>

@@ -61,6 +61,7 @@ def album_detail(request, album_id):
                 return redirect('album:details', album_id=album.id)
     context = {
             'album': album,
+            'songs': Song.objects.filter(album=album),
             'comments': comments,
             'comment_form': comment_form,
             'song_form': song_form,

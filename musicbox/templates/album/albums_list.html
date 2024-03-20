@@ -19,7 +19,7 @@
           <p>Genre: {{ album.genre }}</p>
           <p>Release Date: {{ album.release_date }}</p>
           <p>Type: {{ album.type }}</p>
-          <a href="{% url 'album:update' album.id %}">Update</a> |
+          <a href="{% url 'album:edit' album.id %}">Update</a> |
           <a href="{% url 'album:delete' album.id %}" onclick="return confirm('Are you sure you want to delete this album?');">Delete</a>
         </div>
         <div class="songs-list">
