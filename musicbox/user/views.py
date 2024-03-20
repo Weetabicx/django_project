@@ -1,10 +1,13 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from user.models import UserProfile
 from django.shortcuts import render, redirect
 from user.forms import UserForm, UserProfileForm
 from django.urls import reverse
+from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
@@ -25,7 +28,7 @@ def login(request):
         
         if user:
             if user.is_active:
-                login(request, user)
+                auth_login(request, user)
                 return redirect(reverse('user:index'))
             else:
                 return HttpResponse("Your MusicBox account is disabled.")
@@ -53,12 +56,16 @@ def register(request):
 
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
-
-            profile.save()
+                profile.save()
+                
             registered=True
-
         else:
             print(user_form.errors, profile_form.errors)
+    else:
+        user_form=UserForm()
+        profile_form=UserProfileForm()
+    
+    return render(request, 'user/register.html', context = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
 @login_required
 def manage_account(request):
