@@ -33,6 +33,8 @@ def upload_album(request):
 def delete_album(request, album_id):
     if request.method == 'POST':
         album = get_object_or_404(Album, pk=album_id)
+        for song in Song.objects.filter(album=album):
+            song.delete()
         album.delete()
         return redirect(reverse('album:list'))  # Redirect to the album list or wherever you prefer
     else:
