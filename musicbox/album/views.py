@@ -12,6 +12,8 @@ from song.forms import SongForm
 
 def albums_list(request):
     albums = Album.objects.all()
+    for album in albums:
+        album.songs = Song.objects.filter(album=album)
     return render(request, 'album/albums_list.html', {'albums': albums})
 
 
@@ -25,18 +27,6 @@ def upload_album(request):
     else:
         form = AlbumForm()
     return render(request, 'album/upload_album.html', {'form': form})
-
-
-def album_update(request, id):
-    album = get_object_or_404(Album, id=id)
-    if request.method == 'POST':
-        form = AlbumForm(request.POST, request.FILES, instance=album)
-        if form.is_valid():
-            form.save()
-            return redirect('albums_list')
-    else:
-        form = AlbumForm(instance=album)
-    return render(request, 'album/album_form.html', {'form': form})
 
 
 # @login_required

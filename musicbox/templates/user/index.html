@@ -1,28 +1,63 @@
 {% extends 'base.html' %}
 
-{% block title %}
-MusicBook - Discover New Music
-{% endblock %}
-
 {% block styles %}
 {{ block.super }}
 <style>
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    #search {
-        text-align: center;
-    }
-    .new-releases .album {
-        margin: 10px;
-        text-align: center;
-    }
+	.vh-88 {
+		height: 88vh;
+	}
+	.vh-30 {
+		height: 30vh;
+	}
+	.w-94 {
+		width: 94%;
+	}
+	.h-46 {
+		height: 46%;
+	}
+	.h-98 {
+		height: 98.8%;
+	}
+	.content-wrapper {
+		max-width: 87%;
+	}
+
 </style>
 {% endblock %}
 
 {% block content %}
+
+<section class="bg-dark text-light p-5 text-center text-sm-start align-items-center justify-content-inbetween">
+	<div class="container">
+		<div class="row d-sm-flex">
+			<div class="col">
+				<div class="content-wrapper">
+					<h1>Find Your Next Favorite Song!</h1>
+					<p class="lead mb-4">Search by artist, album, or track! Browse new releases and popular albums below!</p>
+				</div>
+			</div>
+			<div class="col-md-6 my-3">
+				<div class="input-group py-3">
+					<input type="text" class="form-control" placeholder="Explore!">
+					<button class="btn btn-primary" type="button">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="bg-light text-dark text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<card>
+					<h1>Cool!</h1>
+				</card>
+			</div>
+		</div>
+	</div>
+</section>
+
 <header>
     <div>
         <h1>Welcome to MusicBook</h1>

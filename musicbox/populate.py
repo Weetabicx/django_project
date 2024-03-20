@@ -1,5 +1,6 @@
 import os, random
 from datetime import datetime
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "musicbox.settings")
 
 import django
@@ -8,7 +9,8 @@ django.setup()
 from django.core.files import File
 from django.contrib.auth.models import User
 from user.models import UserProfile
-from album.models import Album
+from album.models import Album, Album_Comment
+from song.models import Song, Song_Comment
 
 
 def populate() -> None:
@@ -38,7 +40,7 @@ def create_users() -> None:
 		user.set_password(f"{firstname}123")
 		user.save()
 
-		user_profile = UserProfile.objects.create(user=user, picture="default.jpg")
+		user_profile = UserProfile.objects.create(user=user, picture="/default/profile.png")
 		user_profile.save()
 		
 def create_albums() -> None:
@@ -60,36 +62,50 @@ def create_albums() -> None:
 			genre=data["genre"],
 			release_date=datetime.strptime(data["release_date"], "%Y-%m-%d"),
 			artist=data["artist"],
-			owner=User.objects.all()[random.randint(0, User.objects.count() - 1)]
+			owner=User.objects.all()[random.randint(0, User.objects.count() - 1)],
+			cover=f"default/album.jpg"
 			)
 		album.save()
 
 def create_songs() -> None:
 	for album in Album.objects.all():
-		for i in range(1, 11):
-			song = album.song_set.create(
-				title=f"Song {i}",
+		if album.type != "Album":
+			song = Song.objects.create(
+				title=album.name,
 				genre=album.genre,
 				release_date=album.release_date,
-				artist=album.artist
+				artist=album.artist,
+				album = album
 				)
 			song.save()
+		else:
+			for i in range(1, 11):
+				song = Song.objects.create(
+					title=f"{album.name} - Track {i}",
+					genre=album.genre,
+					release_date=album.release_date,
+					artist=album.artist,
+					album=album
+					)
+				song.save()
 
 def create_reviews() -> None:
 	for album in Album.objects.all():
 		for i in range(1, 11):
-			album_comment = album.album_comment_set.create(
+			review = Album_Comment.objects.create(
 				rating=random.randint(1, 10),
-				comment=f"Comment {i}"
+				comment=f"Comment {i}",
+				album=album
 				)
-			album_comment.save()
+			review.save()
 
-		for song in album.song_set.all():
-			song_comment = song.song_comment_set.create(
+		for song in Song.objects.filter(album=album):
+			review = Song_Comment.objects.create(
 				rating=random.randint(1, 10),
-				comment=f"Comment {i}"
+				comment=f"Comment {1}",
+				song=song
 				)
-			song_comment.save()
+			review.save()
 
 if __name__ == "__main__":
 	populate()

@@ -1,5 +1,6 @@
 from django.db import models
 from album.models import Album
+from django.template.defaultfilters import slugify
 from django.utils import timezone
 
 
@@ -24,4 +25,4 @@ class Song_Comment(models.Model):
 
 
     def __str__(self):
-        return self.comment[:20]
+        return f"Comment: {self.comment} - Rating: {self.rating}"    

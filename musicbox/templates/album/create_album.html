@@ -7,7 +7,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
-        <a href="{% url 'index' %}" class="button" style="text-decoration: none; color: black;">return</a>
+        <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">return</a>
     </form>
 </div>
 {% endblock %}

@@ -2,32 +2,48 @@
 {% load static %}
 
 {% block content %}
-  <h2>Songs List</h2>
-  {% block styles %}
-    <link rel="stylesheet" href="{% static 'albums_list.css' %}">
-  {% endblock %}
 
-  <div>
-    {% for song in songs %}
-      <div class="song">
-         <p><a href="{% url 'song_detail' song.id %}">{{ song.title }}</a> - Uploaded on: {{ song.uploaded_at }}</p>
-      </div>
-    {% empty %}
-      <p>No songs have been uploaded yet.</p>
-    {% endfor %}
-  </div>
-
-  <div class="upload-song-button">
-    <a href="{% url 'upload_song' %}" class="button">Upload a Song</a>
-  </div>
-
-  <div>
-     <a href="{% url 'index' %}" class="button" style="text-decoration: none; color: black;">Return</a>
-  </div>
-
-  {% block javascript %}
+<main>
+    <h1>Uploaded Songs</h1>
+    <div class="songs-list">
+        {% for song in songs %}
+        <div class="song">
+            {% if song.album.cover %}
+            <img src="{{ song.album.cover.url }}" alt="Front Cover">
+            {% endif %}
+            <div class="song-info">
+                <h2>{{ song.title }}</h2>
+                <p>Arist: {{ song.artist }}</p>
+                <p>Album: {{ song.album }}</p>
+                <p>Type: {{ song.album.type }}</p>
+                <p>Genre: {{ song.genre }}</p>
+                <p>Average Rating: {{ song.avgrating }}</p>
+                <p>Reviews: 
+                {% for review in song.reviews %}
+                    {{ review }}
+                {% endfor %}
+                </p>
+            </div>
+            {% if song.music_link %}
+            <a href="{{ song.music_link }}" class="song-link">Listen</a>
+            {% endif %}
+            <form action="{% url 'album:delete' song.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+        <div>
+            <a href="{% url 'song:upload' %}" class="button" style="text-decoration: none; color: black;">upload your song</a>
+        </div>
+        <div>
+            <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">return</a>
+        </div>
+    </div>
+    {% block javascript %}
     <script src="{% static 'toggle_reviews.js' %}"></script>
     <script src="{% static 'song_form.js' %}"></script>
 
        {% endblock %}
+</main>
 {% endblock %}
