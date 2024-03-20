@@ -15,25 +15,31 @@
 		.opacity-90 {
 			opacity: 0.9;
 		}
+		.custom-background {
+			background-color: #DDE6ED;
+		}
 	</style>
     {% endblock %}
 
 </head>
 
-<body>
+<body class="custom-background">
 
 	<header>
 		{% block nav %}
 		<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
 			<div class="container">
-				<span class="navbar-brand mb-0 h1">MusicBook</span>
+				<a class="navbar-brand" href="{% url 'user:index' %}">MusicBook</a>
 
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link active" href="{% url 'user:index' %}">Home</a>
+							<a class="nav-link" href="{% url 'album:list' %}">Albums</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'song:list' %}">Songs</a>
 						</li>
 					</ul>
 					<ul class="navbar-nav justify-content-end">
