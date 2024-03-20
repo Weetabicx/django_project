@@ -8,6 +8,6 @@
         {{ form.as_p }}
         <button type="submit" class="save btn btn-success">Save Changes</button>
     </form>
-    <a href="{% url 'album_detail' album.id %}" class="cancel btn btn-secondary">Cancel</a>
+    <a href="{% url 'album:details' album.id %}" class="cancel btn btn-secondary">Cancel</a>
 </div>
 {% endblock %}

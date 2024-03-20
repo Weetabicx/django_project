@@ -9,7 +9,7 @@ class Song(models.Model):
     title = models.CharField(max_length=100)
     artist = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
-    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='songs', null=True, blank=True)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='_songs', null=True, blank=True)
     release_date = models.DateTimeField(default=timezone.now)
     rating = models.IntegerField(default=0)
 
