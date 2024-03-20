@@ -4,7 +4,7 @@ from .views import *
 app_name = 'song'
 
 urlpatterns = [
-    path('', song_list_view, name='song_list'),
+    path('', song_list_view, name='list'),
     path('<int:song_id>/delete/', delete_song, name='delete'),
     path('upload_song', upload_song, name='upload'),
     path('<int:song_id>/', song_detail_view, name='details'),
