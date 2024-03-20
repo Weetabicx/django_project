@@ -23,7 +23,7 @@ def upload_song(request):
             # If a new album is not being created, save the song directly
             song_form.save()
             messages.success(request, 'Song uploaded successfully.')
-            return redirect('song_list')
+            return redirect('song:list')
     else:
         song_form = SongForm()
 
@@ -34,7 +34,7 @@ def upload_song(request):
 def delete_song(request, song_id):
     song = get_object_or_404(Song, id=song_id)
     song.delete()
-    return redirect('song_list')
+    return redirect('song:list')
 
 
 def song_detail_view(request, song_id):
@@ -48,7 +48,7 @@ def update_song(request, song_id):
         form = SongForm(request.POST, instance=song)
         if form.is_valid():
             form.save()
-            return redirect('song_detail', song_id=song.id)
+            return redirect('song:details', song_id=song.id)
     else:
         form = SongForm(instance=song)
     return render(request, 'song/edit_song.html', {'form': form, 'song': song})
