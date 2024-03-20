@@ -2,30 +2,35 @@
 
 {% block styles %}
 {{ block.super }}
+<style>
+    .register {
+        box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <main>
-    <div class="container py-5 h-100 opacity-90">
+    <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-dark text-white shadow-lg">
-                    <div class="card-body p-5 text-center">
+                <div class="register card bg-dark text-white">
+                    <div class="card-body p-5">
                         <div class="mb-md-5 mt-md-4 pb-5">
-                            <h2 class="fw-bold mb-5">Sign Up</h2>
-                            <div class="form-floating mb-3">
+                            <h2 class="fw-bold mb-5 text-info">Sign Up!</h2>
+                            <div class="form-floating mb-3 text-dark">
                                 <input type="text" class="form-control" id="floatingInput" placeholder="Username">
                                 <label for="floatingInput">Username</label>
                             </div>
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 text-dark">
                                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                                 <label for="floatingInput">Email address</label>
                             </div>
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 text-dark">
                                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                                 <label for="floatingPassword">Password</label>
                             </div>
-                            <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+                            <button class="btn btn-primary btn-lg px-5" type="submit">Register</button>
                         </div>
                         <div>
                             <p class="mb-0">Already have an account? <a href="{% url 'user:login' %}" class="text-white-50 fw-bold">Login</a></p>

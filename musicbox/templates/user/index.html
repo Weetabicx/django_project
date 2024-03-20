@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block styles %}
 {{ block.super }}
@@ -21,7 +22,55 @@
 	.content-wrapper {
 		max-width: 87%;
 	}
-
+	@media screen and (min-width: 568px) {
+		.carousel-inner .carousel-item.active,
+		.carousel-inner .carousel-item-next,
+		.carousel-inner .carousel-item-prev {
+			display: flex;
+		}
+		.card {
+			margin: 0 .5em;
+			width: calc(100%/3);
+		}
+		.image-wrapper {
+			height: 22vh;
+		}
+	}
+	.image-wrapper img{
+		max-height: 100%;
+		max-width: 100%;
+	}
+	@media screen and (max-width: 567px) {
+		.card:not(:first-child) {
+			display: none;
+		}
+	}
+	.card {
+		box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+		transition: transform 0.3s ease-in-out;
+	}
+	.card:hover {
+		transform: scale(1.05);
+	}
+	.carousel-inner {
+		padding: 1em;
+	}
+	.carousel-control-prev,.carousel-control-next {
+		background-color: #e1e1e1;
+		width: 6vh;
+		height: 6vh;
+		border-radius: 50%;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.carousel-control-prev span,.carousel-control-next span {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+	.no-bullets,.no-bullets li{
+		list-style-type: none;
+		padding: 0;
+	}
 </style>
 {% endblock %}
 
@@ -32,15 +81,15 @@
 		<div class="row d-sm-flex">
 			<div class="col">
 				<div class="content-wrapper">
-					<h1>Find Your Next Favorite Song!</h1>
+					<h1 class="text-info">Find Your Next Favorite Song!</h1>
 					<p class="lead mb-4">Search by artist, album, or track! Browse new releases and popular albums below!</p>
 				</div>
 			</div>
 			<div class="col-md-6 my-3">
 				<div class="input-group py-3">
-					<input class="form-control" type="text" name="query" placeholder="Search by artist, album, or track">
+					<input name="query" type="text" class="form-control" placeholder="Explore!">
 					<form method="get" action="{% url 'user:search' %}">
-					<button class="btn btn-primary" type="submit">Search</button>
+					  <button class="btn btn-primary" type="submit">Search</button>
 					</form>
 				</div>
 			</div>
@@ -48,38 +97,223 @@
 	</div>
 </section>
 
-<section class="bg-light text-dark text-center">
+<section class="bg-primary">
+	<br>
+</section>
+
+<section class="text-dark p-5">
 	<div class="container">
-		<div class="row">
-			<div class="col">
-				<card>
-					<h1>Cool!</h1>
-				</card>
+
+		<h2 class="text-center pb-2">New Releases</h2>
+
+		<div id="releaseCarousel" class="carousel slide carousel-dark">
+			<div class="carousel-inner w-100">
+				<div class="carousel-item active">
+					{% if carousel1 %}
+					{% for album in carousel1 %}
+					<div class="card">
+						<div class="image-wrapper">
+							{% if album.cover %}
+								<img class="p-2" src="{{ album.cover.url }}" alt="{{ album.name }}">
+							{% else %}
+								<img src="{{ MEDIA_URL }}default/image.jpg" alt="Default cover">
+							{% endif %}
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">{{ album.name }}</h5>
+							<p class="card-text">
+								<ul class="no-bullets">
+									<li>Artist: {{ album.artist }}</li>
+									<li>Genre: {{ album.genre }}</li>
+									<li>Release Date: {{ album.release_date }}</li>
+								</ul>
+							</p>
+							<a href="#" class="btn btn-primary">Check It Out!</a>
+						</div>
+					</div>
+					{% endfor %}
+					{% endif %}
+				</div>
+				<div class="carousel-item">
+					{% if carousel2 %}
+					{% for album in carousel2 %}
+					<div class="card">
+						<div class="image-wrapper">
+							{% if album.cover %}
+							<img class="p-2" src="{{ album.cover.url }}" alt="{{ album.name }}">
+							{% else %}
+							<img src="{{ MEDIA_URL }}default/image.jpg" alt="Default cover">
+							{% endif %}
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">{{ album.name }}</h5>
+							<p class="card-text">
+							<ul class="no-bullets">
+								<li>Artist: {{ album.artist }}</li>
+								<li>Genre: {{ album.genre }}</li>
+								<li>Release Date: {{ album.release_date }}</li>
+							</ul>
+							</p>
+							<a href="#" class="btn btn-primary">Check It Out!</a>
+						</div>
+					</div>
+					{% endfor %}
+					{% endif %}
+				</div>
+				<div class="carousel-item">
+					{% if carousel3 %}
+					{% for album in carousel3 %}
+					<div class="card">
+						<div class="image-wrapper">
+							{% if album.cover %}
+							<img class="p-2" src="{{ album.cover.url }}" alt="{{ album.name }}">
+							{% else %}
+							<img src="{{ MEDIA_URL }}default/image.jpg" alt="Default cover">
+							{% endif %}
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">{{ album.name }}</h5>
+							<p class="card-text">
+							<ul class="no-bullets">
+								<li>Artist: {{ album.artist }}</li>
+								<li>Genre: {{ album.genre }}</li>
+								<li>Release Date: {{ album.release_date }}</li>
+							</ul>
+							</p>
+							<a href="#" class="btn btn-primary">Check It Out!</a>
+						</div>
+					</div>
+					{% endfor %}
+					{% endif %}
 			</div>
+
+			<button class="carousel-control-prev" type="button" data-bs-target="#releaseCarousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#releaseCarousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+
 		</div>
 	</div>
 </section>
 
-<!-- <header>
-    <div>
-        <h1>Welcome to MusicBook</h1>
-    </div>
-    <div>
-        <a href="{% url 'user:login' %}" class="button" style="text-decoration: none; color: black;">Login</a>
-    </div>
-</header>
-<main>
-    <form method="get" action="{% url 'user:search' %}">
-        <input type="text" name="query" placeholder="Search by artist, album, or track" style="width: 100%; max-width: 200px; padding: 10px;">
-        <button type="submit">Search</button>
-    </form>
-    <div>
-        <nav>
-            <ul>
-                <li><a href="{% url 'album:list' %}">Albums</a></li>
-                <li><a href="{% url 'song:list' %}">Song list</a></li>
-            </ul>
-        </nav>
-    </div>
-</main> -->
+<section class="bg-primary">
+	<br>
+</section>
+
+<section class="bg-dark text-light p-5">
+	<div class="container">
+		<div class="row">
+
+			<div class="col">
+				<h2>Top Albums</h2>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Artist</th>
+							<th scope="col">Genre</th>
+							<th scope="col">Release Date</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% if topAlbums %}
+					{% for album in topAlbums %}
+						<tr>
+							<th scope="row">{{ album.name }}</th>
+							<th>{{ album.artist }}</th>
+							<th>{{ album.genre }}</th>
+							<th>{{ album.release_date }}</th>
+						</tr>
+					{% endfor %}
+					{% endif %}
+				</table>
+			</div>
+
+			<div class="col">
+				<h2>Top Songs</h2>
+				<table class="table table-hover">
+					<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Album</th>
+						<th scope="col">Artist</th>
+						<th scope="col">Genre</th>
+						<th scope="col">Release Date</th>
+					</tr>
+					</thead>
+					<tbody>
+					{% if topAlbums %}
+					{% for album in topAlbums %}
+					<tr>
+						<th scope="row">{{ album.name }}</th>
+						<th>{{ album.album }}</th>
+						<th>{{ album.artist }}</th>
+						<th>{{ album.genre }}</th>
+						<th>{{ album.release_date }}</th>
+					</tr>
+					{% endfor %}
+					{% endif %}
+				</table>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<section class="bg-primary">
+	<br>
+</section>
+
+<section class="text-dark p-5">
+	<div class="container">
+
+		<h2 class="pb-4 text-center">Frequently Asked Questions</h2>
+
+		<div class="accordion" id="frequentQuestions">
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#frequentQuestion-one">
+						<strong>How do I create an account?</strong>
+					</button>
+				</h2>
+				<div id="frequentQuestion-one" class="accordion-collapse collapse" data-bs-parent="#frequentQuestions">
+					<div class="accordion-body">To create an account, navigate to the 'Login' menu by clicking the login button at the top of the page. Once there, click the 'Sign Up' link at the bottom of the screen. This
+					will take you to a new menu, where you will be prompted to provide a username, email address and password. Once you submit this, your account will be created and you can login using your username and password.</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#frequentQuestion-two">
+						<strong>How can I upload my own music to MusicBook?</strong>
+					</button>
+				</h2>
+				<div id="frequentQuestion-two" class="accordion-collapse collapse" data-bs-parent="#frequentQuestions">
+					<div class="accordion-body">Uploading your own music to MusicBook is easy! Once logged in, you will see a new option 'Upload' appear on the navigation bar at the top of the screen. Click this button, and you will
+					be prompted between choosing between uploading an album or a song. Choose whichever suits you, and fill in the provided form. After you submit this form, navigate to the 'Albums' page, where you should see your brand new upload waiting for you!</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#frequentQuestion-three">
+						<strong>How do I review releases?</strong>
+					</button>
+				</h2>
+				<div id="frequentQuestion-three" class="accordion-collapse collapse" data-bs-parent="#frequentQuestions">
+					<div class="accordion-body">To review releases, first navigate to page of the release you would like to review. This can be done a number of ways, either through searching with the search bar, or finding it manually on the 'Albums' or 'Songs' pages.
+					Once on the page, ensure you are logged in. Logged in users will have access to the 'Review' button, where you can rate out of 5 stars, and comment on the release. Click publish, and your review will now turn up on the release's page.</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<section class="bg-primary">
+	<br>
+</section>
+
 {% endblock %}

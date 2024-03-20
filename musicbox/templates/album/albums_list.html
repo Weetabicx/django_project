@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}Albums List{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" href="{% static 'albums_list.css' %}">
 {% endblock %}
+
 {% block content %}
+
   <h2>Albums List</h2>
   <div class="albums-list">
     {% for album in albums %}

@@ -3,7 +3,6 @@
 
 {% block content %}
 
-<main>
     <h1>Uploaded Songs</h1>
     <div class="songs-list">
         {% for song in songs %}
@@ -40,10 +39,10 @@
             <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">return</a>
         </div>
     </div>
-    {% block javascript %}
+
+{% endblock %}
+
+{% block scripts %}
     <script src="{% static 'toggle_reviews.js' %}"></script>
     <script src="{% static 'song_form.js' %}"></script>
-
-       {% endblock %}
-</main>
 {% endblock %}
