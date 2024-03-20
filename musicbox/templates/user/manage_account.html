@@ -3,9 +3,11 @@
 
 {% block content %}
 <h2>Manage Account</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<form method="post" action="{% url 'user:manage_user' %}">
+
+    Enter your Current Password: <input type="password" name="current_password" value="" size="50" />
+    Enter a New Password: <input type="password" name="new_password" value="" size="50" />
+    
     <button type="submit">Save changes</button>
 </form>
 {% endblock %}

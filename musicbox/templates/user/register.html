@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block styles %}
 {{ block.super }}
@@ -12,20 +13,35 @@
                 <div class="card bg-dark text-white shadow-lg">
                     <div class="card-body p-5 text-center">
                         <div class="mb-md-5 mt-md-4 pb-5">
+
+                            {% if registered %}
+                            Rango says: <strong>thank you for registering!</strong>
+                            <a href="{% url 'user:login' %}">Now you can log in!</a><br />
+                            {% else %}
+
                             <h2 class="fw-bold mb-5">Sign Up</h2>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Username">
-                                <label for="floatingInput">Username</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                                <label for="floatingInput">Email address</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">Password</label>
-                            </div>
-                            <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+                            <form id="user_form" method="post" action="{% url 'user:register' %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-floating mb-3">
+                                    <label>Username</label>
+                                    {{ user_form.username }}
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <label for="floatingInput">Email address</label>
+                                    {{ user_form.email }}
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <label>Password</label>
+                                    {{ user_form.password }}
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <label>Upload a profile picture</label>
+                                    {{ profile_form.picture }}
+                                </div>
+
+                                <input type="submit" name="submit" value="Register" />
+                            </form>
+                            {%endif%}
                         </div>
                         <div>
                             <p class="mb-0">Already have an account? <a href="{% url 'user:login' %}" class="text-white-50 fw-bold">Login</a></p>
