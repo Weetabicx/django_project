@@ -1,17 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-{% block title %}Songs List{% endblock %}
-
-{% block styles %}
-     <link rel="stylesheet" href="{% static 'song_list.css' %}">
-{% endblock %}
-
-{% block scripts %}
-        <script src="{% static 'delete_song.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 
     <h1>Uploaded Songs</h1>
@@ -37,7 +26,7 @@
             {% if song.music_link %}
             <a href="{{ song.music_link }}" class="song-link">Listen</a>
             {% endif %}
-            <form action="{% url 'album:delete' song.id %}" method="post">
+            <form action="{% url 'song:delete' song.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit">Delete</button>
             </form>
@@ -51,4 +40,9 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'toggle_reviews.js' %}"></script>
+    <script src="{% static 'song_form.js' %}"></script>
 {% endblock %}

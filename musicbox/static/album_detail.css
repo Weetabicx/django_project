@@ -1,0 +1,31 @@
+.album-page-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.album-and-comments-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.album-details, .comments-section {
+    flex: 1;
+}
+
+.album-cover img {
+    width: 100%; /* Adjust as needed */
+    max-width: 200px; /* Adjust as needed */
+}
+
+.album-info, .comments-section {
+    margin: 0 20px;
+}
+
+.comments-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comments-section li + li {
+    margin-top: 10px;
+}

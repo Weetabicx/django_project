@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'album_detail.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<div class="album-page-container">
+    <div class="album-and-comments-container">
+        <div class="album-details">
+            <div class="album-cover">
+                {% if album.cover %}
+                    <img src="{{ album.cover.url }}" alt="{{ album.name }}" width="200">
+                {% else %}
+                    <img src="{% static 'path/to/your/default/image.jpg' %}" alt="Default cover" width="200">
+                {% endif %}
+            </div>
+            <div class="album-info">
+                <h2>{{ album.name }}</h2>
+                <p>Artist: {{ album.artist }}</p>
+                <p>Genre: {{ album.genre }}</p>
+                <p>Release Date: {{ album.release_date }}</p>
+                <p>Type: {{ album.type }}</p>
+                <h3>Songs</h3>
+                <ul>
+                    {% for song in songs %}
+                        <li>{{ song.title }} - {{ song.genre }} - {{ song.release_date }}</li>
+                    {% empty %}
+                        <li>No songs in this album.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="comments-section">
+            <h3>Comments</h3>
+            <ul>
+                {% for comment in album.comments.all %}
+                    <li>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <p style="margin: 0;">{{ comment.comment }}</p>
+                        <span style="padding-left: 10px;">Rating: {{ comment.rating }}</span>
+                    </li>
+                {% empty %}
+                    <li>No comments yet.</li>
+                {% endfor %}
+            </ul>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">Add Comment</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#songModal">Add Song</button>
+        </div>
+    </div>
+
+    <form action="{% url 'album:delete' album.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this album?');">Delete Album</button>
+    </form>
+
+    <!-- Add Comment Modal -->
+    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="commentModalLabel">Add a Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ comment_form.as_p }}
+                        <button type="submit" name="comment_submit" class="btn btn-primary">Submit Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Song Modal -->
+    <div class="modal fade" id="songModal" tabindex="-1" role="dialog" aria-labelledby="songModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="songModalLabel">Add a Song</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ song_form.as_p }}
+                        <div class="form-group">
+                            <label for="songAlbum">Album</label>
+                            <select class="form-control" id="songAlbum" name="album">
+                                {% for album in albums %}
+                                <option value="{{ album.id }}">{{ album.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" name="song_submit" class="btn btn-primary">Submit Song</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'album:edit' album.id %}" class="button">edit</a>
+    <a href="{% url 'album:list' %}" class="button">Return</a>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+</div>
+{% endblock %}

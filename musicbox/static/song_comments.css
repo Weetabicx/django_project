@@ -1,0 +1,21 @@
+ .song-detail-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .song-detail-info {
+        flex: 1;
+        margin-right: 20px; /* Adjust the space between the columns */
+    }
+    .comments-section {
+        flex: 1;
+    }
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+        .song-detail-container {
+            flex-direction: column;
+        }
+        .song-detail-info,
+        .comments-section {
+            margin-right: 0;
+        }
+    }
