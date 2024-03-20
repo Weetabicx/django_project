@@ -27,7 +27,7 @@
             {% if song.music_link %}
             <a href="{{ song.music_link }}" class="song-link">Listen</a>
             {% endif %}
-            <form action="{% url 'album:delete' song.id %}" method="post">
+            <form action="{% url 'song:delete' song.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit">Delete</button>
             </form>

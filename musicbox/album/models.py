@@ -14,6 +14,7 @@ class Album(models.Model):
     genre = models.CharField(max_length=30)
     release_date = models.DateField()
     artist = models.CharField(max_length=50)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     cover = models.ImageField(
         upload_to='album_covers/',
         validators=[FileExtensionValidator(allowed_extensions=['jpeg','jpg', 'png'])], )
@@ -32,7 +33,7 @@ class Album(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('album_detail', kwargs={'album_id': self.id})
+        return reverse('album:details', kwargs={'album_id': self.id})
 
 
 

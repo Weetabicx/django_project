@@ -23,7 +23,7 @@ def upload_album(request):
         form = AlbumForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('albums_list')
+            return redirect('album:list')
     else:
         form = AlbumForm()
     return render(request, 'album/upload_album.html', {'form': form})
@@ -33,10 +33,12 @@ def upload_album(request):
 def delete_album(request, album_id):
     if request.method == 'POST':
         album = get_object_or_404(Album, pk=album_id)
+        for song in Song.objects.filter(album=album):
+            song.delete()
         album.delete()
-        return redirect(reverse('albums_list'))  # Redirect to the album list or wherever you prefer
+        return redirect(reverse('album:list'))  # Redirect to the album list or wherever you prefer
     else:
-        return redirect(reverse('album_detail', kwargs={'album_id': album_id}))
+        return redirect(reverse('album:details', kwargs={'album_id': album_id}))
 
 
 def album_detail(request, album_id):
@@ -51,16 +53,17 @@ def album_detail(request, album_id):
             comment.album = album
             comment.author = request.user
             comment.save()
-            return redirect('album_detail', album_id=album.id)
+            return redirect('album:details', album_id=album.id)
         elif 'song_submit' in request.POST:
             song_form = SongForm(request.POST)
             if song_form.is_valid():
                 new_song = song_form.save(commit=False)
                 new_song.album = album
                 new_song.save()
-                return redirect('album_detail', album_id=album.id)
+                return redirect('album:details', album_id=album.id)
     context = {
             'album': album,
+            'songs': Song.objects.filter(album=album),
             'comments': comments,
             'comment_form': comment_form,
             'song_form': song_form,
@@ -75,7 +78,7 @@ def edit_album(request, album_id):
         form = AlbumForm(request.POST, request.FILES, instance=album)
         if form.is_valid():
             form.save()
-            return redirect('album_detail', album_id=album.id)
+            return redirect('album:details', album_id=album.id)
     else:
         form = AlbumForm(instance=album)
     return render(request, 'album/edit_album.html', {'form': form, 'album': album})
