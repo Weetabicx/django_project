@@ -18,6 +18,10 @@
 		.custom-background {
 			background-color: #DDE6ED;
 		}
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
 		body::before {
 			display: block;
 			content: '';
@@ -50,7 +54,11 @@
 							<a class="nav-link" href="{% url 'song:list' %}">Songs</a>
 						</li>
 					</ul>
-					<ul class="navbar-nav justify-content-end">
+                       <form method="get" action="{% url 'user:search' %}">
+                            <input type="text" name="q" placeholder="Enter search term...">
+                            <button type="submit">Search</button>
+                        </form>
+                    <ul class="navbar-nav justify-content-end">
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'user:login' %}">Login</a>
 						</li>
@@ -68,7 +76,7 @@
         {% endblock %}
     </main>
 
-    <footer class="bg-dark p-2 text-light text-center position-relative">
+    <footer class="bg-dark p-2 text-light text-center position-relative" >
 		<div class="container">
 			<p class="lead">Copyright &copy; 2024 MusicBook</p>
 		</div>

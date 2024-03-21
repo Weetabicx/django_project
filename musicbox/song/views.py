@@ -8,10 +8,7 @@ from album.forms import AlbumForm
 
 # Create your views here.
 def song_list_view(request):
-    songs = Song.objects.all().order_by('-release_date')
-    for song in songs:
-        song.reviews = Song_Comment.objects.filter(song=song)
-        song.avgrating = Song_Comment.objects.filter(song=song).aggregate(models.Avg('rating'))['rating__avg']
+    songs = Song.objects.all().order_by('-uploaded_at')
     return render(request, 'song/song_list.html', {'songs': songs})
 
 
@@ -39,7 +36,21 @@ def delete_song(request, song_id):
 
 def song_detail_view(request, song_id):
     song = get_object_or_404(Song, id=song_id)
-    return render(request, 'song/song_detail.html', {'song': song})
+    average_rating = song.average_rating()
+    print("Average rating is: ", average_rating)
+    if request.method == 'POST':
+        comment_form = SongCommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.song = song
+            new_comment.save()
+            return redirect('song:detail', song_id=song.id)
+    else:
+        comment_form = SongCommentForm()
+    return render(request, 'song/song_detail.html', {
+        'song': song,
+        'comment_form': comment_form,
+    })
 
 
 def update_song(request, song_id):
@@ -66,3 +77,11 @@ def add_comment_to_song(request, song_id):
     else:
         form = SongCommentForm()
         return redirect('song:details', song_id=song.id)
+
+def search_song(request):
+    query = request.GET.get('q', '')
+    if query:
+        songs = Song.objects.filter(title__icontains=query)
+    else:
+        songs = Song.objects.none()
+    return render(request, 'song/search_songs.html', {'songs': songs})

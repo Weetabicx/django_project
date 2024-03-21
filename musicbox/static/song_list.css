@@ -1,18 +1,41 @@
- .song {
+.song {
         border: 1px solid #ddd;
         margin: 10px 0;
-        padding: 10px;
+        padding: 5px;
         display: flex;
         align-items: center;
+        transform: translateY(50px);
     }
-    .song img {
-        width: 100px;
-        height: 100px;
-        margin-right: 20px;
-    }
-    .song-info {
+.song-info {
         flex-grow: 1;
     }
-    .song-link {
+ .song-link {
         margin-left: auto;
     }
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    transform: translateY(55px);
+}
+
+.top-bar h2 {
+    margin-bottom: 0;
+}
+
+.search-bar {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-bar input[type="text"] {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.button {
+    transform: translateY(50px);
+}

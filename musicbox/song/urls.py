@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:song_id>/', song_detail_view, name='details'),
     path('<int:song_id>/update/', update_song, name='update'),
     path('<int:song_id>/add-comment', add_comment_to_song, name='add-comment'),
+    path('songs/search/', search_song, name='search'),
 ]
