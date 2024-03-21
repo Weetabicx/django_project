@@ -69,18 +69,21 @@ def register(request):
 
 @login_required
 def manage_account(request):
-
-    if request.method == 'POST':
-        current_password = request.post.get('current_password')
-        new_password = request.post.get('new_password')
-
-        if(request.user.password==current_password):
-           request.user.password=new_password
-           return redirect(reverse('user:index'))
-        else:
-            return HttpResponse("Incorrect password.")
+    if request.user.is_authenticated:
+        logged_user=User.objects.get(username=request.user.username)
+        user_form=UserForm(request.POST or None, instance=logged_user)
+        if user_form.is_valid():
+            user_form.save()
+            auth_login(request, logged_user) 
+            messages.success(request, ("Profile Updated Successfully"))
+            return(redirect('user:index'))
+        
+        return render(request, 'user/manage_account.html', context = {'user_form': user_form})
     else:
-        return render(request, 'user/manage_account.html')
+        return HttpResponse("You can only modify profiles which you are logged into.")
+    
+
+
 
 @login_required
 def logout_user(request):
