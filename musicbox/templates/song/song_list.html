@@ -1,28 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block styles %}
+{{ block.super }}
     <link rel="stylesheet" href="{% static 'song_list.css' %}">
 {% endblock %}
+
 {% block content %}
+<div class="container px-5">
 
-<div class="top-bar">
-    <h2>Songs List</h2>
-</div>
+    <div>
+        <div class="row pt-5">
+            <div class="col">
+                <h2>Songs List</h2>
+            </div>
+            <div class="col text-end p-1">
+                <a href="{% url 'song:upload' %}" class="btn btn-primary">Upload a Song!</a>
+            </div>
+        </div>
+    </div>
 
-<div>
-    {% for song in songs %}
-      <div class="song">
-         <p><a href="{% url 'song:details' song.id %}">{{ song.title }}</a> - Uploaded on: {{ song.uploaded_at }}</p>
-        <p>Average Rating: {{ song.average_rating }}</p>
-      </div>
-    {% empty %}
-      <p>No songs have been uploaded yet.</p>
-    {% endfor %}
-</div>
-
-
-<div class="upload-song-button">
-    <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">Return</a>
-    <a href="{% url 'song:upload' %}" class="button">Upload a Song</a>
+    <div class="pb-5">
+        {% for song in songs %}
+          <div class="song">
+              <p><a href="{% url 'song:details' song.id %}">{{ song.title }}</a> - Uploaded on: {{ song.uploaded_at }} - Average Rating: {{ song.average_rating }}</p>
+          </div>
+        {% empty %}
+          <p>No songs have been uploaded yet.</p>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
 </div>
 {% endblock %}

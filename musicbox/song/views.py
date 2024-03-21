@@ -74,6 +74,9 @@ def add_comment_to_song(request, song_id):
             comment.song = song
             comment.save()
             return redirect('song:details', song_id=song.id)
+        else:
+            messages.error(request, 'Please enter a valid rating (0-10)')
+            return redirect('song:details', song_id=song.id)
     else:
         form = SongCommentForm()
         return redirect('song:details', song_id=song.id)

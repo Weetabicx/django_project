@@ -26,6 +26,7 @@ def create_users() -> None:
 	{ "firstname": "usmaan", "lastname": "wahab"},
 	{ "firstname": "james", "lastname": "macdonald"},
 	{ "firstname": "harvey", "lastname": "olden"},
+    { "firstname": "tom", "lastname": "blunt"},
 	]
 
 

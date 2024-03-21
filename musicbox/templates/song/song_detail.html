@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'song_comments.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'song_comments.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,8 +13,7 @@
       <p><strong>Artist:</strong> {{ song.artist }}</p>
       <p><strong>Genre:</strong> {{ song.genre }}</p>
       <p><strong>Uploaded on:</strong> {{ song.uploaded_at|date:"Y-m-d" }}</p>
-      <p><strong>Rating:</strong> {{ song.rating }}</p>
-
+      <p><strong>Average Rating:</strong> {{ song.average_rating }}</p>
       {% if song.album %}
         <p><strong>Album:</strong> {{ song.album.name }}</p>
       {% endif %}
@@ -73,6 +72,7 @@
  </div>
 
 {% endblock %}
+
 {% block javascript %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

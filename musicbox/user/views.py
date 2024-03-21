@@ -65,3 +65,9 @@ def search(request):
     }
 
     return render(request, 'search_results.html', context)
+    
+@login_required
+def user_profile(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+    return render(request, 'user_profile.html', {'user_profile': user_profile})

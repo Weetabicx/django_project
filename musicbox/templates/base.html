@@ -54,10 +54,14 @@
 							<a class="nav-link" href="{% url 'song:list' %}">Songs</a>
 						</li>
 					</ul>
-                       <form method="get" action="{% url 'user:search' %}">
-                            <input type="text" name="q" placeholder="Enter search term...">
-                            <button type="submit">Search</button>
-                        </form>
+					<ul class="navbar-nav justify-content-end">
+						<div class="input-group">
+							<form method="get" action="{% url 'user:search' %}" class="d-sm-flex mx-2">
+								<input name="q" type="text" class="form-control" placeholder="Enter seach term...">
+								<button class="btn btn-outline-primary" type="submit">Search</button>
+							</form>
+						</div>
+					</ul>
                     <ul class="navbar-nav justify-content-end">
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'user:login' %}">Login</a>
