@@ -23,6 +23,9 @@
 			content: '';
 			height: 50px;
 		}
+		.content {
+			min-height: 90vh;
+		}
 	</style>
     {% endblock %}
 
@@ -59,7 +62,7 @@
 		{% endblock %}
 	</header>
 	
-    <main>
+    <main class="content">
         {% block content %}
 
         {% endblock %}

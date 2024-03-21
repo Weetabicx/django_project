@@ -71,6 +71,9 @@
 		list-style-type: none;
 		padding: 0;
 	}
+	table {
+		min-height: 90%;
+	}
 </style>
 {% endblock %}
 
@@ -128,7 +131,7 @@
 									<li>Release Date: {{ album.release_date }}</li>
 								</ul>
 							</p>
-							<a href="#" class="btn btn-primary">Check It Out!</a>
+							<a href="{% url 'album:details' album.id %}" class="btn btn-primary">Check It Out!</a>
 						</div>
 					</div>
 					{% endfor %}
@@ -154,7 +157,7 @@
 								<li>Release Date: {{ album.release_date }}</li>
 							</ul>
 							</p>
-							<a href="#" class="btn btn-primary">Check It Out!</a>
+							<a href="{% url 'album:details' album.id %}" class="btn btn-primary">Check It Out!</a>
 						</div>
 					</div>
 					{% endfor %}
@@ -180,7 +183,7 @@
 								<li>Release Date: {{ album.release_date }}</li>
 							</ul>
 							</p>
-							<a href="#" class="btn btn-primary">Check It Out!</a>
+							<a href="{% url 'album:details' album.id %}" class="btn btn-primary">Check It Out!</a>
 						</div>
 					</div>
 					{% endfor %}
@@ -206,37 +209,38 @@
 
 <section class="bg-dark text-light p-5">
 	<div class="container">
-		<div class="row">
+		<div class="row d-sm-flex">
 
 			<div class="col">
-				<h2>Top Albums</h2>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col">Name</th>
-							<th scope="col">Artist</th>
-							<th scope="col">Genre</th>
-							<th scope="col">Release Date</th>
-						</tr>
+				<h2 class="text-info">Top Albums</h2>
+				<table class="table table-hover table-dark rounded">
+					<thead class="bg-dark text-light">
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Artist</th>
+						<th scope="col">Genre</th>
+						<th scope="col">Release Date</th>
+					</tr>
 					</thead>
-					<tbody>
+					<tbody class="table-group-divider">
 					{% if topAlbums %}
 					{% for album in topAlbums %}
-						<tr>
-							<th scope="row">{{ album.name }}</th>
-							<th>{{ album.artist }}</th>
-							<th>{{ album.genre }}</th>
-							<th>{{ album.release_date }}</th>
-						</tr>
+					<tr class="align-middle">
+						<td><a class="link-light link-underline-opacity-0" href="{% url 'album:details' album.id %}">{{ album.name }}</a></td>
+						<td>{{ album.artist }}</td>
+						<td>{{ album.genre }}</td>
+						<td>{{ album.release_date }}</td>
+					</tr>
 					{% endfor %}
 					{% endif %}
+					</tbody>
 				</table>
 			</div>
 
 			<div class="col">
-				<h2>Top Songs</h2>
-				<table class="table table-hover">
-					<thead>
+				<h2 class="text-info">Top Songs</h2>
+				<table class="table table-hover table-dark">
+					<thead class="bg-dark text-light">
 					<tr>
 						<th scope="col">Name</th>
 						<th scope="col">Album</th>
@@ -245,15 +249,15 @@
 						<th scope="col">Release Date</th>
 					</tr>
 					</thead>
-					<tbody>
-					{% if topAlbums %}
-					{% for album in topAlbums %}
-					<tr>
-						<th scope="row">{{ album.name }}</th>
-						<th>{{ album.album }}</th>
-						<th>{{ album.artist }}</th>
-						<th>{{ album.genre }}</th>
-						<th>{{ album.release_date }}</th>
+					<tbody class="table-group-divider">
+					{% if topSongs %}
+					{% for song in topSongs %}
+					<tr class="align-middle">
+						<td><a class="link-light link-underline-opacity-0" href="{% url 'song:details' song.id %}">{{ song.title }}</a></td>
+						<td>{{ song.album }}</td>
+						<td>{{ song.artist }}</td>
+						<td>{{ song.genre }}</td>
+						<td>{{ song.release_date }}</td>
 					</tr>
 					{% endfor %}
 					{% endif %}

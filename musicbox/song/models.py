@@ -15,6 +15,17 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+        
+    def top_songs() -> list[tuple[int, float]]:
+
+        """
+        returns the top five songs in the form (song, average_rating)
+        """
+        top_songs = {}
+        for song in Song.objects.all():
+            top_songs[song] = (Song_Comment.objects.filter(song=song.id).aggregate(models.Avg('rating')))["rating__avg"]
+        result = {k: v for k, v in sorted(top_songs.items(), key=lambda item: item[1], reverse=True)}
+        return [(k,v) for k,v in result.items()][:5]
 
 
 class Song_Comment(models.Model):
