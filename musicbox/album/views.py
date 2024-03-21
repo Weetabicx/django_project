@@ -6,14 +6,11 @@ from .models import Album, Album_Comment
 from song.models import Song
 from django.urls import reverse
 from song.forms import SongForm
-
+from django.contrib.auth.models import User
 
 # Create your views here.
-
 def albums_list(request):
-    albums = Album.objects.all()
-    for album in albums:
-        album.songs = Song.objects.filter(album=album)
+    albums = Album.objects.all().order_by('-uploaded_at')
     return render(request, 'album/albums_list.html', {'albums': albums})
 
 
@@ -22,6 +19,13 @@ def upload_album(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST, request.FILES)
         if form.is_valid():
+            #album = form.save(commit=False)
+            #album.owner = request.user
+            # this is only fot text
+            user = User.objects.get(id=1)
+            album = form.save(commit=False)
+            album.owner = user
+            # delete it
             form.save()
             return redirect('album:list')
     else:
@@ -46,6 +50,8 @@ def album_detail(request, album_id):
     comments = Album_Comment.objects.filter(album=album)
     song_form = SongForm()
     comment_form = AlbumCommentForm()
+    average_rating = album.average_rating()
+    print("Average rating is: ", average_rating)
     if request.method == "POST":
         form = AlbumCommentForm(request.POST)
         if form.is_valid():
@@ -83,5 +89,20 @@ def edit_album(request, album_id):
         form = AlbumForm(instance=album)
     return render(request, 'album/edit_album.html', {'form': form, 'album': album})
 
+def search_albums(request):
+    query = request.GET.get('q', '')
+    if query:
+        albums = Album.objects.filter(name__icontains=query)
+    else:
+        albums = Album.objects.none()
 
+    return render(request, 'album/search_albums.html', {'albums': albums})
+
+
+
+# text code, delete it.
+def create_album_for_test():
+    user = User.objects.get(id=1)
+    album = Album(name="text", artist="text", owner=user)
+    album.save()
 

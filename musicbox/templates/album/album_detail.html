@@ -20,11 +20,11 @@
                 <p>Artist: {{ album.artist }}</p>
                 <p>Genre: {{ album.genre }}</p>
                 <p>Release Date: {{ album.release_date }}</p>
-                <p>Type: {{ album.type }}</p>
+                <p>Average Rating: {{ album.average_rating }}</p>
                 <h3>Songs</h3>
                 <ul>
                     {% for song in songs %}
-                        <li>{{ song.title }} - {{ song.genre }} - {{ song.release_date }}</li>
+                        <li><a href="{% url 'song:details' song.id %}">{{ song.title }} - {{ song.genre }} - {{ song.release_date }}</li>
                     {% empty %}
                         <li>No songs in this album.</li>
                     {% endfor %}
@@ -45,7 +45,6 @@
                 {% endfor %}
             </ul>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">Add Comment</button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#songModal">Add Song</button>
         </div>
     </div>
 
@@ -103,6 +102,7 @@
         </div>
     </div>
 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#songModal">Add Song</button>
     <a href="{% url 'album:edit' album.id %}" class="button">edit</a>
     <a href="{% url 'album:list' %}" class="button">Return</a>
 

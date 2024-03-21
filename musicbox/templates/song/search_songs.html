@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Search Results</h2>
+  {% if songs %}
+    <div>
+      {% for song in songs %}
+        <div class="song">
+           <p><a href="{% url 'song:detail' song.id %}">{{ song.title }}</a> - Uploaded on: {{ song.uploaded_at }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No songs found.</p>
+  {% endif %}
+    <a href="{% url 'song:list' %}">Back to song list</a>
+{% endblock %}
