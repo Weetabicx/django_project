@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'song_comments.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+{% endblock %}
+
+{% block content %}
+ <div class="container mt-5 song-detail-container">
+    <div class="song-detail-info">
+      <h1>{{ song.title }}</h1>
+      <p><strong>Artist:</strong> {{ song.artist }}</p>
+      <p><strong>Genre:</strong> {{ song.genre }}</p>
+      <p><strong>Uploaded on:</strong> {{ song.uploaded_at|date:"Y-m-d" }}</p>
+      <p><strong>Rating:</strong> {{ song.rating }}</p>
+
+      {% if song.album %}
+        <p><strong>Album:</strong> {{ song.album.name }}</p>
+      {% endif %}
+
+      <div class="comments-section">
+        <h3>Comments:</h3>
+        <ul>
+          {% for comment in song.comments.all %}
+            <li>
+              <strong>{{ comment.created_date|date:"Y-m-d H:i" }}:</strong>
+              {{ comment.comment }} - Rating: {{ comment.rating }}
+            </li>
+          {% empty %}
+            <li>No comments yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+        <!-- Trigger/Open The Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">
+          Add Comment
+        </button>
+
+        <!-- The Modal for Adding Comments -->
+        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Add a Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form method="post" action="{% url 'song:add-comment' song.id %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                  {{ comment_form.as_p }}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <a href="{% url 'song:update' song.id %}" class="button">Edit Song</a>
+        <form action="{% url 'song:delete' song.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" onclick="return confirm('Are you sure you want to delete this song?');">Delete Song</button>
+        </form>
+
+      <a href="{% url 'song:list' %}">Back to song list</a>
+    </div>
+ </div>
+
+{% endblock %}
+{% block javascript %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% endblock %}

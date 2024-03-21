@@ -9,5 +9,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('logout/', logout_user, name='logout'),
     path('manage_account/', manage_account, name='manage_account'),
+    path('search/', search, name='search'),
 
 ]

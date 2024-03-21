@@ -3,15 +3,20 @@
 
 {% block styles %}
 {{ block.super }}
+<style>
+    .register {
+        box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <main>
-    <div class="container py-5 h-100 opacity-90">
+    <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-dark text-white shadow-lg">
-                    <div class="card-body p-5 text-center">
+                <div class="register card bg-dark text-white">
+                    <div class="card-body p-5">
                         <div class="mb-md-5 mt-md-4 pb-5">
 
                             {% if registered %}

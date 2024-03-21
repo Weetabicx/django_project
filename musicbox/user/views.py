@@ -8,16 +8,33 @@ from django.shortcuts import render, redirect
 from user.forms import UserForm, UserProfileForm
 from django.urls import reverse
 from django.http import HttpResponse
+from album.models import Album
+from song.models import Song
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
+
+    carouselAlbums1 = Album.objects.order_by('-release_date')[:3]
+    carouselAlbums2 = Album.objects.order_by('-release_date')[3:6]
+    carouselAlbums3 = Album.objects.order_by('-release_date')[6:9]
+    
+    topAlbums = Album.top_albums()
+
+    context_dic={}
+    context_dic['carousel1'] = carouselAlbums1
+    context_dic['carousel2'] = carouselAlbums2
+    context_dic['carousel3'] = carouselAlbums3
+    context_dic['topAlbums'] = topAlbums
+
     if request.method == 'POST':
         query = request.POST.get('query')
         if query:
             return redirect('album:search', query)
         else:
             messages.error(request, 'Please enter a search query')
-    return render(request, 'user/index.html')
+            
+    return render(request, 'user/index.html', context=context_dic)
 
 
 def login(request):
@@ -73,7 +90,8 @@ def manage_account(request):
         logged_user=User.objects.get(username=request.user.username)
         user_form=UserForm(request.POST or None, instance=logged_user)
         if user_form.is_valid():
-            user_form.save()
+            user=user_form.save()
+            user.set_password(user.password)
             auth_login(request, logged_user) 
             messages.success(request, ("Profile Updated Successfully"))
             return(redirect('user:index'))
