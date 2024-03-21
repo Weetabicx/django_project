@@ -11,6 +11,7 @@ urlpatterns = [
                 path('<int:album_id>/edit/', edit_album, name='edit'),
                 path('<int:album_id>/delete/', delete_album, name='delete'),
                 path('<int:album_id>/', album_detail, name='details'),
+                path('search/', search_albums, name='search'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Search Results</h1>
+  {% if albums %}
+    <div class="albums-list">
+      {% for album in albums %}
+        <div class="album-container">
+          <div class="album-cover">
+            {% if album.cover %}
+              <img src="{{ album.cover.url }}" alt="{{ album.name }}" width="100">
+            {% endif %}
+          </div>
+          <div class="album-info">
+            <h3><a href="{% url 'detail' album.id %}">{{ album.name }}</a></h3>
+            <p>Artist: {{ album.artist }}</p>
+            <p>Genre: {{ album.genre }}</p>
+            <p>Release Date: {{ album.release_date }}</p>
+            <p>Type: {{ album.type }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No albums found.</p>
+  {% endif %}
+</div>
+    <a href="{% url 'album:list' %}" class="button">Return</a>
+{% endblock %}

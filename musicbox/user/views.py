@@ -39,15 +39,20 @@ def login(request):
 def register(request):
     return render(request, 'user/register.html')
 
-def search_results(request):
-    query = request.GET.get('query', '')
-    if query:
-        songs = Song.objects.filter(Q(title__icontains=query) | Q(artist__icontains=query))
-        albums = Album.objects.filter(Q(name__icontains=query) | Q(artist__icontains=query))
-        # More query sets can be added for more models like Artist, Genre, etc.
-    else:
-        songs = Song.objects.all()
-        albums = Album.objects.all()
-        # More query sets with default listings if needed
 
-    return render(request, 'user/search_results.html', {'songs': songs, 'albums': albums, 'query': query})
+def search(request):
+    query = request.GET.get('q', '')
+    songs = Song.objects.filter(title__icontains=query) | Song.objects.filter(artist__icontains=query)
+    albums = Album.objects.filter(name__icontains=query) | Album.objects.filter(artist__icontains=query)
+
+    # 如果你有一个专门的Artist模型
+    # artists = Artist.objects.filter(name__icontains=query)
+
+    context = {
+        'query': query,
+        'songs': songs,
+        'albums': albums,
+        # 'artists': artists,
+    }
+
+    return render(request, 'search_results.html', context)

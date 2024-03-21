@@ -7,9 +7,12 @@ class SongForm(forms.ModelForm):
     class Meta:
         model = Song
         fields = ['title', 'genre', 'artist', 'album']
-        # widgets = {
-        #     'album': forms.Select(choices=[(album.id, album.name) for album in Album.objects.all()])
-        # }
+        widgets = {
+         }
+
+    def __init__(self, *args, **kwargs):
+        super(SongForm, self).__init__(*args, **kwargs)
+        self.fields['album'].widget = forms.Select(choices=[(album.id, album.name) for album in Album.objects.all()])
 
 class SongCommentForm(forms.ModelForm):
     class Meta:
