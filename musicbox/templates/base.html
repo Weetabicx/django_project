@@ -62,11 +62,19 @@
 							</form>
 						</div>
 					</ul>
+				{% if user.is_authenticated %}
                     <ul class="navbar-nav justify-content-end">
 						<li class="nav-item">
-							<a class="nav-link" href="{% url 'user:login' %}">Login</a>
+							<a class="nav-link" href="{% url 'user:profile' %}">Profile</a>
 						</li>
 					</ul>
+				{%else%}
+				<ul class="navbar-nav justify-content-end">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'user:login' %}">Login</a>
+					</li>
+				</ul>
+				{ % endif %}
 				</div>
 
 			</div>
