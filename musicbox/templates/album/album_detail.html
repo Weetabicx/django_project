@@ -21,13 +21,13 @@
                 <div class="album-info">
                     <h2>{{ album.name }}</h2>
                     <p>Artist: {{ album.artist }}</p>
-                    <p>Genre: {{ album.genre }}</p>
+                    <p>Genre: {{ album.get_genre_display }}</p>
                     <p>Release Date: {{ album.release_date }}</p>
                     <p>Average Rating: {{ album.average_rating }}</p>
                     <h3>Songs</h3>
                     <ul>
                         {% for song in songs %}
-                            <li><a href="{% url 'song:details' song.id %}">{{ song.title }} - {{ song.genre }} - {{ song.release_date }}</li>
+                            <li><a href="{% url 'song:details' song.id %}">{{ song.title }} - {{ song.get_genre_display }} - {{ song.release_date }}</a></li>
                         {% empty %}
                             <li>No songs in this album.</li>
                         {% endfor %}
@@ -40,8 +40,9 @@
                     {% for comment in album.comments.all %}
                         <li>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <p style="margin: 0;">{{ comment.comment }}</p>
-                            <span style="padding-left: 10px;">Rating: {{ comment.rating }}</span>
+                                <p style="margin: 0;">{{ comment.comment }}</p>
+                                <span style="padding-left: 10px;">Rating: {{ comment.rating }}</span>
+                            </div>
                         </li>
                     {% empty %}
                         <li>No comments yet.</li>

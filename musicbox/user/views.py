@@ -114,9 +114,26 @@ def manage_account(request):
 def user_profile(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
-    return render(request, 'user_profile.html', {'user_profile': user_profile})
+    return render(request, 'user/user_profile.html', {'user_profile': user_profile})
 
 @login_required
 def logout_user(request):
     logout(request)
-    return redirect(reverse('user:login'))
+    return redirect(reverse('user:index'))
+    
+def search(request):
+    query = request.GET.get('q', '')
+    songs = Song.objects.filter(title__icontains=query) | Song.objects.filter(artist__icontains=query)
+    albums = Album.objects.filter(name__icontains=query) | Album.objects.filter(artist__icontains=query)
+
+    # 如果你有一个专门的Artist模型
+    # artists = Artist.objects.filter(name__icontains=query)
+
+    context = {
+        'query': query,
+        'songs': songs,
+        'albums': albums,
+        # 'artists': artists,
+    }
+
+    return render(request, 'search_results.html', context)

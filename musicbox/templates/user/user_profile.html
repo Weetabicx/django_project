@@ -2,34 +2,44 @@
 
 {% block styles %}
 {{ block.super }}
+<style>
+    .card {
+        max-width: 35vw;
+        min-width: 35vw;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <main>
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="login card bg-dark text-white">
-                    <div class="card-body p-5">
-                        <div class="mb-md-5 mt-md-4 pb-5">
-                            <h2 class="fw-bold mb-5 text-info">Login</h2>
-                            <div class="form-floating mb-3 text-dark">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Username">
-                                <label for="floatingInput">Username</label>
-                            </div>
-                            <div class="form-floating mb-3 text-dark">
-                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">Password</label>
-                            </div>
-                            <button class="btn btn-primary btn-lg px-5" type="submit">Sign In</button>
-                        </div>
-                        <div>
-                            <p class="mb-0">Don't have an account? <a href="{% url 'user:register' %}" class="text-white-50 fw-bold">Sign Up</a></p>
+    <section class="bg-dark text-light">
+        <div class="container p-5">
+            <div class="row">
+                <div class="col">
+                    <h2 class="pb-3">{{ user_profile.user }}'s Profile!</h2>
+                </div>
+                <div class="col text-end">
+                    <a href="{% url 'user:manage_account' %}" class="btn btn-primary justify-content-end">Edit Account</a>
+                </div>
+            </div>
+            <div class="card mb-3 bg-dark border-dark text-light">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if user_profile.picture %}
+                        <img class="shadow-lg" src="{{ user_profile.picture.url }}" alt="{{ user_profile.user }}" width="200">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text"><strong>Name:</strong> {{ user_profile.user }}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <section class="bg-primary">
+        <br>
+    </section>
 </main>
 {% endblock %}

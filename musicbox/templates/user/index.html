@@ -110,7 +110,7 @@
 							<p class="card-text">
 								<ul class="no-bullets">
 									<li>Artist: {{ album.artist }}</li>
-									<li>Genre: {{ album.genre }}</li>
+									<li>Genre: {{ album.get_genre_display }}</li>
 									<li>Release Date: {{ album.release_date }}</li>
 								</ul>
 							</p>
@@ -136,7 +136,7 @@
 							<p class="card-text">
 							<ul class="no-bullets">
 								<li>Artist: {{ album.artist }}</li>
-								<li>Genre: {{ album.genre }}</li>
+								<li>Genre: {{ album.get_genre_display }}</li>
 								<li>Release Date: {{ album.release_date }}</li>
 							</ul>
 							</p>
@@ -162,7 +162,7 @@
 							<p class="card-text">
 							<ul class="no-bullets">
 								<li>Artist: {{ album.artist }}</li>
-								<li>Genre: {{ album.genre }}</li>
+								<li>Genre: {{ album.get_genre_display }}</li>
 								<li>Release Date: {{ album.release_date }}</li>
 							</ul>
 							</p>
@@ -171,6 +171,7 @@
 					</div>
 					{% endfor %}
 					{% endif %}
+				</div>
 			</div>
 
 			<button class="carousel-control-prev" type="button" data-bs-target="#releaseCarousel" data-bs-slide="prev">
@@ -181,7 +182,6 @@
 				<span class="carousel-control-next-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Next</span>
 			</button>
-
 		</div>
 	</div>
 </section>
@@ -211,7 +211,7 @@
 					<tr class="align-middle">
 						<td><a class="link-light link-underline-opacity-0" href="{% url 'album:details' album.id %}">{{ album.name }}</a></td>
 						<td>{{ album.artist }}</td>
-						<td>{{ album.genre }}</td>
+						<td>{{ album.get_genre_display }}</td>
 						<td>{{ album.release_date }}</td>
 					</tr>
 					{% endfor %}
@@ -239,7 +239,7 @@
 						<td><a class="link-light link-underline-opacity-0" href="{% url 'song:details' song.id %}">{{ song.title }}</a></td>
 						<td>{{ song.album }}</td>
 						<td>{{ song.artist }}</td>
-						<td>{{ song.genre }}</td>
+						<td>{{ song.get_genre_display }}</td>
 						<td>{{ song.release_date }}</td>
 					</tr>
 					{% endfor %}

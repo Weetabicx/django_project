@@ -33,7 +33,7 @@ def upload_album(request):
     return render(request, 'album/upload_album.html', {'form': form})
 
 
-# @login_required
+@login_required
 def delete_album(request, album_id):
     if request.method == 'POST':
         album = get_object_or_404(Album, pk=album_id)
@@ -77,7 +77,7 @@ def album_detail(request, album_id):
     return render(request, 'album/album_detail.html', context)
 
 
-# @login_required
+@login_required
 def edit_album(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
     if request.method == 'POST':
