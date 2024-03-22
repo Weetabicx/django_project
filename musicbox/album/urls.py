@@ -3,13 +3,16 @@ from .views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
+app_name = 'album'
+
 urlpatterns = [
-                  path('', albums_list, name='albums_list'),
-                  path('albums_list',  albums_list, name='albums_list'),
-                  path('upload_album/', upload_album, name='upload_album'),
-                  path('album/<int:id>/update/', album_update, name='album_update'),
-                  path('album/<int:id>/delete/', album_delete, name='album_delete'),
-                  path('albums/<int:album_id>/', album_detail, name='album_detail'),
+                path('', albums_list, name='list'),
+                path('upload/', upload_album, name='upload'),
+                path('<int:album_id>/edit/', edit_album, name='edit'),
+                path('<int:album_id>/delete/', delete_album, name='delete'),
+                path('<int:album_id>/', album_detail, name='details'),
+                path('search/', search_albums, name='search'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

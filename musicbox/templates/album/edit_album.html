@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Album</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-success">Save Changes</button>
+    </form>
+    <a href="{% url 'album:details' album.id %}" class="cancel btn btn-secondary">Cancel</a>
+    <a href="{% url 'song:list' %}">Back to song list</a>
+</div>
+{% endblock %}

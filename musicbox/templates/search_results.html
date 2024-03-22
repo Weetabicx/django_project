@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <h2>Search Results</h2>
+
+
+    {% if query %}
+        <p>Showing results for: "{{ query }}"</p>
+
+        <div>
+            <h3>Songs</h3>
+            {% if songs %}
+                <ul>
+                    {% for song in songs %}
+                        <li>{{ song.title }} by {{ song.artist }} - <a href="{{ song.get_absolute_url }}">View Song</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No songs found for "{{ query }}".</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <h3>Albums</h3>
+            {% if albums %}
+                <ul>
+                    {% for album in albums %}
+                        <li>{{ album.name }} by {{ album.artist }} - <a href="{{ album.get_absolute_url }}">View Album</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No albums found for "{{ query }}".</p>
+            {% endif %}
+        </div>
+
+    {% endif %}
+<a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">Return</a>
+</div>
+{% endblock %}
