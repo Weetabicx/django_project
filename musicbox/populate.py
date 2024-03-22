@@ -41,7 +41,7 @@ def create_users() -> None:
 		user.set_password(f"{firstname}123")
 		user.save()
 
-		user_profile = UserProfile.objects.create(user=user, picture="/default/profile.png")
+		user_profile = UserProfile.objects.create(user=user, picture="default/profile.jpg")
 		user_profile.save()
 		
 def create_albums() -> None:
