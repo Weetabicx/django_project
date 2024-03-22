@@ -13,7 +13,7 @@
       <p><strong>Artist:</strong> {{ song.artist }}</p>
       <p><strong>Genre:</strong> {{ song.genre }}</p>
       <p><strong>Uploaded on:</strong> {{ song.uploaded_at|date:"Y-m-d" }}</p>
-      <p>Average Rating: {{ song.average_rating }}</p>
+      <p><strong>Average Rating:</strong> {{ song.average_rating }}</p>
 
       {% if song.album %}
         <p><strong>Album:</strong> {{ song.album.name }}</p>
