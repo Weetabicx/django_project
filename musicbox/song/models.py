@@ -27,7 +27,7 @@ class Song(models.Model):
         """
         top_songs = {}
         for song in Song.objects.all():
-            top_songs[song] = (Song_Comment.objects.filter(song=song.id).aggregate(models.Avg('rating')))["rating__avg"]
+            top_songs[song] = (Song_Comment.objects.filter(song=song.id).aggregate(models.Avg('rating')))["rating__avg"] or 0
         result = {k: v for k, v in sorted(top_songs.items(), key=lambda item: item[1], reverse=True)}
         return [(k,v) for k,v in result.items()][:5]
 
