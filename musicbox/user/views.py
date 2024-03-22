@@ -99,8 +99,9 @@ def manage_account(request):
         logged_user=User.objects.get(username=request.user.username)
         user_form=UserForm(request.POST or None, instance=logged_user)
         if user_form.is_valid():
-            user=user_form.save()
-            user.set_password(user.password)
+            user = user_form.save()
+            user.set_password(user_form.cleaned_data['password'])
+            user.save()
             auth_login(request, logged_user) 
             messages.success(request, ("Profile Updated Successfully"))
             return(redirect('user:index'))
