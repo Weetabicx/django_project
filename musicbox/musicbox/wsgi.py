@@ -1,29 +1,16 @@
-# This file contains the WSGI configuration required to serve up your
-# web application at http://wad2.pythonanywhere.com/
-# It works by setting the variable 'application' to a WSGI handler of some
-# description.
-#
-# The below has been auto-generated for your Django project
+"""
+WSGI config for musicbox project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/5.0/howto/deployment/wsgi/
+"""
 
 import os
-import sys
 
-# add your project directory to the sys.path
-# change wad2 to your PythonAnywhere username
-path = '/home/usmaanwahab/django_project'
-if path not in sys.path:
-    sys.path.append(path)
+from django.core.wsgi import get_wsgi_application
 
-# IMPORTANTLY GO TO THE PROJECT DIR
-os.chdir(path)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'musicbox.settings')
 
-# set environment variable to tell django where your settings.py is
-os.environ['DJANGO_SETTINGS_MODULE'] = 'musicbox.settings'
-
-# IMPORT THE DJANGO SETUP - NEW TO 1.7
-import django
-django.setup()
-
-# serve django via WSGI
-import django.core.handlers.wsgi
-application = django.core.handlers.wsgi.WSGIHandler()
+application = get_wsgi_application()
