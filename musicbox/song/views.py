@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import SongForm, SongCommentForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from album.models import Album
 from album.forms import AlbumForm
 
@@ -12,7 +13,7 @@ def song_list_view(request):
     return render(request, 'song/song_list.html', {'songs': songs})
 
 
-# @login_required
+@login_required
 def upload_song(request):
     if request.method == 'POST':
         song_form = SongForm(request.POST, request.FILES)
@@ -27,7 +28,7 @@ def upload_song(request):
     return render(request, 'song/upload_song.html', {'form': song_form})
 
 
-# @login_required
+@login_required
 def delete_song(request, song_id):
     song = get_object_or_404(Song, id=song_id)
     song.delete()
@@ -52,7 +53,7 @@ def song_detail_view(request, song_id):
         'comment_form': comment_form,
     })
 
-
+@login_required
 def update_song(request, song_id):
     song = get_object_or_404(Song, id=song_id)
     if request.method == 'POST':
