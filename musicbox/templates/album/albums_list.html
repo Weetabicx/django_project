@@ -18,25 +18,32 @@
             <a href="{% url 'album:upload' %}" class="btn btn-primary">Upload an Album!</a>
         </div>
     </div>
-    <div class="albums-list">
-     {% for album in albums %}
-    <div class="album-container">
-      <div class="album-cover">
-        {% if album.cover %}
-        <img src="{{ album.cover.url }}" alt="{{ album.name }}" width="100">
-        {% endif %}
-      </div>
-      <div class="album-info">
-        <h3><a href="{% url 'album:details' album.id %}">{{ album.name }}</a></h3>
-        <p>Artist: {{ album.artist }}</p>
-        <p>Genre: {{ album.genre }}</p>
-        <p>Release Date: {{ album.release_date }}</p>
-        <p>Type: {{ album.type }}</p>
-      </div>
+
+  <h2>Albums List</h2>
+  <div class="albums-list">
+   {% for album in albums %}
+  <div class="album-container">
+    <div class="album-cover">
+      {% if album.cover %}
+      <img src="{{ album.cover.url }}" alt="{{ album.name }}" width="100">
+      {% endif %}
     </div>
-    {% empty %}
-    <p>No albums uploaded yet.</p>
-    {% endfor %}
+    <div class="album-info">
+      <h3><a href="{% url 'album:details' album.id %}">{{ album.name }}</a></h3>
+      <p>Artist: {{ album.artist }}</p>
+      <p>Genre: {{ album.genre }}</p>
+      <p>Release Date: {{ album.release_date }}</p>
+      <p>Type: {{ album.type }}</p>
+      <p><strong>Average Rating:</strong> {{ album.average_rating }}</p>
+    </div>
+  </div>
+  {% empty %}
+  <p>No albums uploaded yet.</p>
+  {% endfor %}
+    <br>
+    <a href="{% url 'album:upload' %}" class="button" style="text-decoration: none; color: black;">Upload new one</a>
+    <div>
+      <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">Return</a>
     </div>
 </div>
 {% endblock %}

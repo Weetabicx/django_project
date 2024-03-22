@@ -20,16 +20,21 @@
         </div>
     </div>
 
-    <div class="pb-5">
-        {% for song in songs %}
-          <div class="song">
-              <p><a href="{% url 'song:details' song.id %}">{{ song.title }}</a> - Uploaded on: {{ song.uploaded_at }} - Average Rating: {{ song.average_rating }}</p>
-          </div>
-        {% empty %}
-          <p>No songs have been uploaded yet.</p>
-        {% endfor %}
+<div>
+    {% for song in songs %}
+      <div class="song">
+         <p><a href="{% url 'song:details' song.id %}">{{ song.title }}</a> - Uploaded on: {{ song.uploaded_at }}</p>
+        <p><strong>Average Rating:</strong> {{ song.average_rating }}</p>
+      </div>
+    {% empty %}
+      <p>No songs have been uploaded yet.</p>
+    {% endfor %}
+    <div class="upload-song-button">
+        <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">Return</a>
+        <a href="{% url 'song:upload' %}" class="button">Upload a Song</a>
     </div>
-    <br>
-    <br>
 </div>
+
+
+
 {% endblock %}
