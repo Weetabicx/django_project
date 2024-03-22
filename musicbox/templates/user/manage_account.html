@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block styles %}
 {{ block.super }}
 {% endblock %}
 
 {% block content %}
-<h1>Manage your MusicBox Account</h1>
+<div class="container p-5">
+    <h2 class="pb-3">Manage your MusicBox Account</h2>
 
-<form id="user_form" method="post" action="{% url 'user:manage_account' %}"
-    enctype="multipart/form-data">
+    <form id="user_form" method="post" action="{% url 'user:manage_account' %}"
+        enctype="multipart/form-data">
 
-    {% csrf_token %}
-    {{ user_form.as_p }}
+        {% csrf_token %}
+        {{ user_form.as_p }}
 
-    <input type="submit" name="submit" value="Edit Account" />
-</form>
-
+        <input type="submit" name="submit" value="Confirm" />
+    </form>
+</div>
 {% endblock %}
