@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Upload Album</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-     <a href="{% url 'album:list' %}" class="button" style="text-decoration: none; color: black;">Return</a>
-  </form>
+<div class="container p-5">
+    <h2>Upload Album</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Upload</button>
+       <a href="{% url 'album:list' %}" class="button" style="text-decoration: none; color: black;">Return</a>
+    </form>
+</div>
 {% endblock %}

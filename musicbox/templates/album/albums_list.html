@@ -4,15 +4,19 @@
 {% block title %}Albums List{% endblock %}
 
 {% block styles %}
+{{ block.super }}
 <link rel="stylesheet" href="{% static 'albums_list.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="search-container">
-        <form action="{% url 'album:search' %}" method="get">
-            <input type="text" name="q" placeholder="Search albums...">
-            <button type="submit">Search</button>
-        </form>
+<div class="container p-5">
+    <div class="row">
+        <div class="col">
+            <h2>Albums List</h2>
+        </div>
+        <div class="col text-end p-1">
+            <a href="{% url 'album:upload' %}" class="btn btn-primary">Upload an Album!</a>
+        </div>
     </div>
 
   <h2>Albums List</h2>
@@ -41,5 +45,5 @@
     <div>
       <a href="{% url 'user:index' %}" class="button" style="text-decoration: none; color: black;">Return</a>
     </div>
-  </div>
+</div>
 {% endblock %}

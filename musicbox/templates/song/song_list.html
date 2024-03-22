@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block styles %}
+{{ block.super }}
     <link rel="stylesheet" href="{% static 'song_list.css' %}">
 {% endblock %}
-{% block content %}
 
-<div class="top-bar">
-    <h2>Songs List</h2>
-</div>
+{% block content %}
+<div class="container px-5">
+
+    <div>
+        <div class="row pt-5">
+            <div class="col">
+                <h2>Songs List</h2>
+            </div>
+            <div class="col text-end p-1">
+                <a href="{% url 'song:upload' %}" class="btn btn-primary">Upload a Song!</a>
+            </div>
+        </div>
+    </div>
 
 <div>
     {% for song in songs %}

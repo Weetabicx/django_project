@@ -27,12 +27,9 @@
 			content: '';
 			height: 50px;
 		}
-        main {
-        flex: 1;
-        }
-        footer {
-            flex-shrink: 0;
-        }
+		.content {
+			min-height: 90vh;
+		}
 	</style>
     {% endblock %}
 
@@ -57,15 +54,23 @@
 							<a class="nav-link" href="{% url 'song:list' %}">Songs</a>
 						</li>
 					</ul>
-                       <form method="get" action="{% url 'user:search' %}">
-                            <input type="text" name="q" placeholder="Enter search term...">
-                            <button type="submit">Search</button>
-                        </form>
-					
+					<ul class="navbar-nav justify-content-end">
+						<div class="input-group">
+							<form method="get" action="{% url 'user:search' %}" class="d-sm-flex mx-2">
+								<input name="q" type="text" class="form-control" placeholder="Enter seach term...">
+								<button class="btn btn-outline-primary" type="submit">Search</button>
+							</form>
+						</div>
+					</ul>
 				{% if user.is_authenticated %}
+					<ul class="navbar-nav justify-content-end">
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'user:logout' %}">Logout</a>
+						</li>
+					</ul>
                     <ul class="navbar-nav justify-content-end">
 						<li class="nav-item">
-							<a class="nav-link" href="{% url 'user:login' %}">Login</a>
+							<a class="nav-link" href="{% url 'user:user_profile' %}">Profile</a>
 						</li>
 					</ul>
 				{%else%}
@@ -74,8 +79,7 @@
 						<a class="nav-link" href="{% url 'user:login' %}">Login</a>
 					</li>
 				</ul>
-
-				{ % endif %}
+				{% endif %}
 				</div>
 
 			</div>
@@ -83,7 +87,7 @@
 		{% endblock %}
 	</header>
 	
-    <main>
+    <main class="content">
         {% block content %}
 
         {% endblock %}

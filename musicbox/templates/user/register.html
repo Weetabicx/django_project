@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block styles %}
 {{ block.super }}
@@ -15,35 +15,35 @@
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="register card bg-dark text-white">
+                <div class="register card bg-dark text-dark">
                     <div class="card-body p-5">
                         <div class="mb-md-5 mt-md-4 pb-5">
 
                             {% if registered %}
-                            <a href="{% url 'user:login' %}">Now you can log in!</a><br />
+                            <h2 class="text-center text-info">Now you can log in!</h2><br />
                             {% else %}
 
-                            <h2 class="fw-bold mb-5">Sign Up</h2>
+                            <h2 class="fw-bold mb-5 text-info">Sign Up</h2>
                             <form id="user_form" method="post" action="{% url 'user:register' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username">
-                                    <label for="floatingInput">Username</label>
+                                    <input type="text" class="form-control" id="floatingInput1" placeholder="Username" name="username">
+                                    <label for="floatingInput1">Username</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floatingInput" placeholder="Username@example.com" name="email">
-                                    <label for="floatingInput">Email</label>
+                                    <input type="email" class="form-control" id="floatingInput2" placeholder="Username@example.com" name="email">
+                                    <label for="floatingInput2">Email</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="floatingInput" placeholder="Password" name="password">
-                                    <label for="floatingInput">Password</label>
+                                    <input type="password" class="form-control" id="floatingInput3" placeholder="Password" name="password">
+                                    <label for="floatingInput3">Password</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="file" class="form-control" id="floatingInput" name="picture">
-                                    <label for="floatingInput">Upload your profile picture</label>
+                                    <input type="file" class="form-control" id="floatingInput4" name="picture">
+                                    <label for="floatingInput4">Upload your profile picture</label>
                                 </div>
 
-                                <input type="submit" name="submit" value="Register" />
+                                <input type="submit" name="submit" class="btn btn-primary" value="Register" />
                             </form>
                             {%endif%}
                         </div>

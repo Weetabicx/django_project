@@ -4,21 +4,6 @@
 {% block styles %}
 {{ block.super }}
 <style>
-	.vh-88 {
-		height: 88vh;
-	}
-	.vh-30 {
-		height: 30vh;
-	}
-	.w-94 {
-		width: 94%;
-	}
-	.h-46 {
-		height: 46%;
-	}
-	.h-98 {
-		height: 98.8%;
-	}
 	.content-wrapper {
 		max-width: 87%;
 	}
@@ -71,6 +56,9 @@
 		list-style-type: none;
 		padding: 0;
 	}
+	table {
+		min-height: 90%;
+	}
 </style>
 {% endblock %}
 
@@ -86,12 +74,10 @@
 				</div>
 			</div>
 			<div class="col-md-6 my-3">
-				<div class="input-group py-3">
-					<input name="query" type="text" class="form-control" placeholder="Explore!">
-					<form method="get" action="{% url 'user:search' %}">
-					  <button class="btn btn-primary" type="submit">Search</button>
-					</form>
-				</div>
+				<form method="get" action="{% url 'user:search' %}" class="d-sm-flex py-3">
+					<input name="q" type="text" class="form-control" placeholder="Explore!">
+					<button class="btn btn-primary" type="submit">Search</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -124,11 +110,11 @@
 							<p class="card-text">
 								<ul class="no-bullets">
 									<li>Artist: {{ album.artist }}</li>
-									<li>Genre: {{ album.genre }}</li>
+									<li>Genre: {{ album.get_genre_display }}</li>
 									<li>Release Date: {{ album.release_date }}</li>
 								</ul>
 							</p>
-							<a href="#" class="btn btn-primary">Check It Out!</a>
+							<a href="{% url 'album:details' album.id %}" class="btn btn-primary">Check It Out!</a>
 						</div>
 					</div>
 					{% endfor %}
@@ -150,11 +136,11 @@
 							<p class="card-text">
 							<ul class="no-bullets">
 								<li>Artist: {{ album.artist }}</li>
-								<li>Genre: {{ album.genre }}</li>
+								<li>Genre: {{ album.get_genre_display }}</li>
 								<li>Release Date: {{ album.release_date }}</li>
 							</ul>
 							</p>
-							<a href="#" class="btn btn-primary">Check It Out!</a>
+							<a href="{% url 'album:details' album.id %}" class="btn btn-primary">Check It Out!</a>
 						</div>
 					</div>
 					{% endfor %}
@@ -176,15 +162,16 @@
 							<p class="card-text">
 							<ul class="no-bullets">
 								<li>Artist: {{ album.artist }}</li>
-								<li>Genre: {{ album.genre }}</li>
+								<li>Genre: {{ album.get_genre_display }}</li>
 								<li>Release Date: {{ album.release_date }}</li>
 							</ul>
 							</p>
-							<a href="#" class="btn btn-primary">Check It Out!</a>
+							<a href="{% url 'album:details' album.id %}" class="btn btn-primary">Check It Out!</a>
 						</div>
 					</div>
 					{% endfor %}
 					{% endif %}
+				</div>
 			</div>
 
 			<button class="carousel-control-prev" type="button" data-bs-target="#releaseCarousel" data-bs-slide="prev">
@@ -195,7 +182,6 @@
 				<span class="carousel-control-next-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Next</span>
 			</button>
-
 		</div>
 	</div>
 </section>
@@ -206,37 +192,38 @@
 
 <section class="bg-dark text-light p-5">
 	<div class="container">
-		<div class="row">
+		<div class="row d-sm-flex">
 
 			<div class="col">
-				<h2>Top Albums</h2>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col">Name</th>
-							<th scope="col">Artist</th>
-							<th scope="col">Genre</th>
-							<th scope="col">Release Date</th>
-						</tr>
+				<h2 class="text-info">Top Albums</h2>
+				<table class="table table-hover table-dark rounded">
+					<thead class="bg-dark text-light">
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Artist</th>
+						<th scope="col">Genre</th>
+						<th scope="col">Release Date</th>
+					</tr>
 					</thead>
-					<tbody>
+					<tbody class="table-group-divider">
 					{% if topAlbums %}
 					{% for album in topAlbums %}
-						<tr>
-							<th scope="row">{{ album.name }}</th>
-							<th>{{ album.artist }}</th>
-							<th>{{ album.genre }}</th>
-							<th>{{ album.release_date }}</th>
-						</tr>
+					<tr class="align-middle">
+						<td><a class="link-light link-underline-opacity-0" href="{% url 'album:details' album.id %}">{{ album.name }}</a></td>
+						<td>{{ album.artist }}</td>
+						<td>{{ album.get_genre_display }}</td>
+						<td>{{ album.release_date }}</td>
+					</tr>
 					{% endfor %}
 					{% endif %}
+					</tbody>
 				</table>
 			</div>
 
 			<div class="col">
-				<h2>Top Songs</h2>
-				<table class="table table-hover">
-					<thead>
+				<h2 class="text-info">Top Songs</h2>
+				<table class="table table-hover table-dark">
+					<thead class="bg-dark text-light">
 					<tr>
 						<th scope="col">Name</th>
 						<th scope="col">Album</th>
@@ -245,15 +232,15 @@
 						<th scope="col">Release Date</th>
 					</tr>
 					</thead>
-					<tbody>
-					{% if topAlbums %}
-					{% for album in topAlbums %}
-					<tr>
-						<th scope="row">{{ album.name }}</th>
-						<th>{{ album.album }}</th>
-						<th>{{ album.artist }}</th>
-						<th>{{ album.genre }}</th>
-						<th>{{ album.release_date }}</th>
+					<tbody class="table-group-divider">
+					{% if topSongs %}
+					{% for song in topSongs %}
+					<tr class="align-middle">
+						<td><a class="link-light link-underline-opacity-0" href="{% url 'song:details' song.id %}">{{ song.title }}</a></td>
+						<td>{{ song.album }}</td>
+						<td>{{ song.artist }}</td>
+						<td>{{ song.get_genre_display }}</td>
+						<td>{{ song.release_date }}</td>
 					</tr>
 					{% endfor %}
 					{% endif %}
