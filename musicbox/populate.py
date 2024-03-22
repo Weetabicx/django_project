@@ -54,7 +54,7 @@ def create_albums() -> None:
 		{ "name": "The Beatles", "type": "Album", "genre": "Rock", "release_date": "1968-11-22", "artist": "The Beatles"},
 		{ "name": "Cash in Cash out", "type": "Single", "genre": "Hip-Hop", "release_date": "2022-06-10", "artist": "Tyler, The Creator"},
 		{ "name": "In My Room", "type": "EP", "genre": "Hip-Hop", "release_date": "2019-11-02", "artist": "Frank Ocean"},
-		{"name": "Heaven's EP", "type": "EP", "genre": "Hip-Hop", "releae_date": "2022-06-10", "artist": "J. Cole"},
+		{"name": "Heaven's EP", "type": "EP", "genre": "Hip-Hop", "release_date": "2022-06-10", "artist": "J. Cole"},
 	]
 
 	for data in album_data:
